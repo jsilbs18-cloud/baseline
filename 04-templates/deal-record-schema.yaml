@@ -1,0 +1,88 @@
+# Deal Record Schema
+# ------------------
+# One YAML file per deal in the CUI environment (deals/<codename>.yaml).
+# This is the single source of truth: one-pagers, pipeline dashboards, and
+# Secretary briefing books are GENERATED from these records (see
+# 07-systems/codex-workspace-plan.md). Edit the record, regenerate the docs.
+#
+# This file is the schema definition with an inline fictional example.
+# Controlled vocabularies must match 03-deal-process/ and 05-frameworks/.
+
+deal:
+  codename: NORTHSTAR              # stable ID; never reuse
+  company: Example Alloys Inc.     # legal name(s); consortium members listed
+  project_name: U.S. gallium refinery
+  sector: critical-minerals        # controlled: semiconductors | critical-minerals |
+                                   #   energy-nuclear | pharma-bio | ai-data-infra |
+                                   #   shipbuilding-dib | other
+  tier: 1                          # 1 | 2 | 3  (per scoring framework)
+  stage: structure                 # intake | screen | diligence | structure |
+                                   #   negotiate | close | monitor | referred | declined
+  owner: jsmith                    # deal lead
+  updated: 2026-07-24              # stamped by tooling at write time
+  origination_channel: agency-referral   # directive | agency-referral | inbound |
+                                         #   foreign-partner | sector-screening | reshoring
+
+snapshot:
+  capex_usd_b: 2.1
+  capex_basis: company-claimed     # company-claimed | validated | committed
+  investment_period_years: 3
+  locations:
+    - state: XX
+      site_status: site-control    # identified | optioned | site-control | permitted
+  jobs_construction: 1800
+  jobs_permanent: 600
+  first_production: 2029-Q2
+
+strategic:
+  score: 82                        # current framework score 0-100
+  score_date: 2026-07-10
+  priority_alignment: "Critical minerals independence directive"
+  dependency_addressed: "~98% of refined gallium import-dependent on single
+    foreign supplier; project covers ~40% of US demand"
+  counterfactual: "Investor proceeds with Gulf-region siting"
+
+package:                           # the federal package; one entry per instrument
+  - instrument: loan-guarantee     # see 06-toolkit taxonomy
+    agency: DOE-LPO
+    amount_usd_b: 1.2
+    status: term-sheet             # identified | in-discussion | term-sheet |
+                                   #   conditional | committed
+  - instrument: offtake-floor
+    agency: DoD-DLA
+    amount_usd_b: 0.3
+    status: in-discussion
+  state_local: "State X: tax abatement package under negotiation"
+  leverage_ratio: "4.2 private : 1 federal"
+
+structure:
+  summary: "Project-financed SPV; federal loan guarantee on senior debt;
+    price-floor offtake for 60% of output years 1-5"
+  government_position: none        # none | equity | warrant | golden-share-rights |
+                                   #   milestone-clawback | other (describe below)
+  position_detail: ""
+
+status:
+  decision_needed: "ED endorsement of package option B by Aug 15"
+  decision_by: 2026-08-15
+  next_30_days:
+    - action: "Finalize package memo"
+      owner: jsmith
+      due: 2026-08-08
+  stage_entered: 2026-06-30        # enables aging flags on the dashboard
+
+risks:
+  - risk: "Allied co-investor board approval slips"
+    severity: M                    # H | M | L
+    mitigation: "Parallel-track sole-investor structure"
+
+contacts:
+  interagency:
+    - {org: DOE-LPO, name: "—", role: "origination lead"}
+  company:
+    - {name: "—", role: "CFO"}
+  state:
+    - {name: "—", role: "EDA director"}
+
+log:                               # append-only; kills and stage changes recorded here
+  - {date: 2026-06-30, event: "Advanced to Structure at pipeline review"}
