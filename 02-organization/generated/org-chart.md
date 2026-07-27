@@ -7,36 +7,50 @@ Generated 2026-07-27 from `org-data/`. Box color = seat status; `n in play` = ac
 ```mermaid
 flowchart TD
     secretary["Secretary of Commerce"]:::external
+    ed["Executive Director<br/><i>On board · AMS</i>"]:::filled
     commerce_cos["Chief of Staff, Commerce<br/><i>On board · Yvette</i>"]:::filled
     commerce_gc["General Counsel, Commerce<br/><i>On board · Cooper Goodfrey</i>"]:::filled
     commerce_chief_counsel["Chief Counsel of Commerce<br/><i>On board · David Shapiro</i>"]:::filled
     commerce_cfo["CFO, Commerce<br/><i>On board · Prashanth</i>"]:::filled
-    ed["Executive Director<br/><i>On board · AMS</i>"]:::filled
-    investment_team["Investment Team<br/><i>Interviewing · 5 seats · 5 in play · Jacob, Abhiram</i>"]:::interviewing
-    minerals_loan["Critical Minerals (on loan — ITA)<br/><i>On board · Joshua Kroon</i>"]:::filled
-    gc["General Counsel (USIA)<br/><i>Sourcing · 2 in play</i>"]:::sourcing
-    legal_team["Legal Team<br/><i>On board · 2 seats · Tyler, Iac</i>"]:::filled
+    deputy["Deputy Director (acting)<br/><i>On board · Josh Kroon</i>"]:::filled
+    head_investments["Head of Investments<br/><i>In screening · 1 in play</i>"]:::clearance_ethics
+    inv_jacob["Investment<br/><i>On board · Jacob</i>"]:::filled
+    inv_abhiram["Investment<br/><i>On board · Abhiram</i>"]:::filled
+    inv_open["Investment Team<br/><i>In talks · 3 seats · 6 in play</i>"]:::interviewing
+    gc["General Counsel (USIA)<br/><i>In talks · 2 in play</i>"]:::interviewing
+    legal_tyler["Legal<br/><i>On board · Tyler</i>"]:::filled
+    legal_iac["Legal<br/><i>On board · Iac</i>"]:::filled
     legal_assoc["Senior Associate — Legal<br/><i>Not started · 2 seats</i>"]:::defined
     paralegal["Paralegal<br/><i>Not started</i>"]:::defined
-    research_team["Research<br/><i>Sourcing · 2 seats · Matt</i>"]:::sourcing
+    research_matt["Research<br/><i>On board · Matt</i>"]:::filled
+    research_open["Research<br/><i>Sourcing · 2 seats · 2 in play</i>"]:::sourcing
     cos["Chief of Staff (USIA)<br/><i>Sourcing</i>"]:::sourcing
-    advisors["Senior Advisors (SGE)<br/><i>On board · 2 seats · Aron, Jon Sobel</i>"]:::filled
+    ea["Executive Assistant<br/><i>Not started</i>"]:::defined
+    adv_aron["Senior Advisor (SGE)<br/><i>On board · Aron</i>"]:::filled
+    adv_sobel["Senior Advisor (SGE)<br/><i>On board · Jon Sobel</i>"]:::filled
     chips["CHIPS Program Office<br/><i>On board · Bill Frauenhoffer (+ team)</i>"]:::filled
 
+    secretary -.-> ed
     secretary -.-> commerce_cos
     secretary -.-> commerce_gc
     secretary -.-> commerce_chief_counsel
     secretary -.-> commerce_cfo
-    secretary -.-> ed
-    ed --> investment_team
-    ed --> minerals_loan
+    ed --> deputy
+    ed --> head_investments
+    ed --> inv_jacob
+    ed --> inv_abhiram
+    ed --> inv_open
     ed --> gc
-    ed --> legal_team
+    ed --> legal_tyler
+    ed --> legal_iac
     ed --> legal_assoc
     ed --> paralegal
-    ed --> research_team
+    ed --> research_matt
+    ed --> research_open
     ed --> cos
-    ed --> advisors
+    ed --> ea
+    ed --> adv_aron
+    ed --> adv_sobel
     ed --> chips
 
     classDef external fill:#ffffff,stroke:#666,stroke-dasharray: 4 3;

@@ -32,10 +32,10 @@ SEAT_STATUSES = [
     "clearance-ethics", "filled", "hold",
 ]
 CANDIDATE_STAGES = [
-    "sourced", "screened", "interviewing", "selected", "clearance-ethics",
-    "eod", "bench", "hold", "declined", "withdrawn",
+    "to-meet", "waiting", "screening", "cleared", "stalled",
+    "joined", "passed", "withdrawn",
 ]
-ACTIVE_STAGES = ["sourced", "screened", "interviewing", "selected", "clearance-ethics"]
+ACTIVE_STAGES = ["to-meet", "waiting", "screening", "cleared"]
 HIRING_AUTHORITIES = ["detailee", "ipa", "sge", "secondee", "excepted", "direct-hire",
                       "schedule-c", "tbd"]
 SOURCE_TYPES = ["private", "government", "person", "group"]
@@ -43,23 +43,25 @@ SOURCE_STATUSES = ["to-call", "called-waiting", "produced", "dry"]
 
 STATUS_LABELS = {
     "defined": "Not started", "approved": "Approved", "sourcing": "Sourcing",
-    "interviewing": "Interviewing", "selected": "Selected",
-    "clearance-ethics": "Clearance/Ethics", "filled": "On board", "hold": "On hold",
+    "interviewing": "In talks", "selected": "Selected",
+    "clearance-ethics": "In screening", "filled": "On board", "hold": "On hold",
 }
 STAGE_LABELS = {
-    "sourced": "Sourced", "screened": "Screened", "interviewing": "Interviewing",
-    "selected": "Selected", "clearance-ethics": "Clearance / Ethics",
+    "to-meet": "To meet", "waiting": "Waiting to hear",
+    "screening": "In screening", "cleared": "Cleared to start",
+    "stalled": "Stalled",
 }
 SOURCE_TYPE_LABELS = {"private": "Private", "government": "Gov", "person": "Person", "group": "Group"}
 SOURCE_COLUMNS = [
-    ("to-call", "Still to call"), ("called-waiting", "Called — waiting"),
+    ("to-call", "Need to call"), ("called-waiting", "Called — waiting"),
     ("produced", "Produced"), ("dry", "Dry"),
 ]
 # CSS var per stage/status dot (see the stylesheet below)
 STAGE_DOT = {
-    "sourced": "--stage-1", "screened": "--stage-2", "interviewing": "--stage-3",
-    "selected": "--stage-4", "clearance-ethics": "--stage-5",
-    "sourcing": "--stage-1", "filled": "--good", "produced": "--good",
+    "to-meet": "--stage-1", "waiting": "--stage-3", "screening": "--stage-4",
+    "cleared": "--good",
+    "sourcing": "--stage-1", "interviewing": "--stage-3", "selected": "--stage-4",
+    "clearance-ethics": "--stage-5", "filled": "--good", "produced": "--good",
 }
 BRANCH_ORDER = ["investment", "legal", "research", "front-office", "advisors", "chips"]
 BRANCH_LABELS = {
@@ -285,10 +287,16 @@ CSS = """
   .seat .who { color: var(--ink-2); font-size: 12px; margin-top: 2px; }
   .seat .who .fade { color: var(--muted); }
   .seat .meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
-  .ctx-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
-               color: var(--muted); text-align: center; margin: 12px 0 6px; }
-  .ctx-row { flex-wrap: wrap; }
-  .ctx-card .seat { background: none; border: 1px solid var(--grid); box-shadow: none; }
+  .top-row { align-items: flex-start; gap: 28px; }
+  .ctx-group { max-width: 560px; }
+  .ctx-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+               color: var(--muted); margin-bottom: 5px; }
+  .ctx-cards { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ctx-card .seat { background: none; border: 1px solid var(--grid); box-shadow: none;
+                    padding: 6px 9px; min-width: 110px; max-width: 150px; }
+  .ctx-card .role { font-size: 11px; }
+  .ctx-card .who { font-size: 11px; margin-top: 1px; }
+  .ctx-card .meta { display: none; }
   .branches { display: flex; justify-content: center; gap: 24px; align-items: flex-start; margin-top: 18px; }
   .branch { display: flex; flex-direction: column; gap: 10px; align-items: stretch; min-width: 180px; }
   .branch > .seat.head { border-top: 3px solid var(--stage-3); }
@@ -359,7 +367,8 @@ def seat_card_html(seat, candidates, is_head=False, external=False):
     open_cls = "" if filled_n else " open"
     names = ", ".join(esc(n) for n in incumbents_of(seat))
     if not names:
-        names = "Vacant"
+        hc = seat.get("headcount", 1)
+        names = "Open" if hc == 1 else f"{hc} open seats"
         if seat.get("acting"):
             names += f' · <span class="fade">{esc(seat["acting"])}</span>'
     auth = seat.get("hiring_authority")
@@ -378,7 +387,10 @@ def seat_card_html(seat, candidates, is_head=False, external=False):
 def org_tab_html(seats, candidates):
     ed = next((s for s in seats if s["id"] == "ed"), None)
     context = [s for s in seats if s.get("context")]
-    usia = [s for s in seats if not s.get("context") and s["id"] != "ed"]
+    deputies = [s for s in seats
+                if s.get("tier") == "deputy" and not s.get("context")]
+    usia = [s for s in seats if not s.get("context") and s["id"] != "ed"
+            and s.get("tier") != "deputy"]
 
     teams_seen = list(dict.fromkeys(s.get("team", "") for s in usia))
     order = [t for t in BRANCH_ORDER if t in teams_seen] \
@@ -395,22 +407,28 @@ def org_tab_html(seats, candidates):
             + "".join(cards) + "</div>"
         )
 
-    context_html = ""
+    ed_card = seat_card_html(ed, candidates) if ed else ""
+    top_row = f'<div class="ed-slot">{ed_card}</div>'
     if context:
         cards = "".join(f'<div class="ctx-card">{seat_card_html(s, candidates)}</div>'
                         for s in context)
-        context_html = (
-            '<div class="ctx-label">Also reporting to the Secretary — Commerce leadership</div>'
-            f'<div class="org-row ctx-row">{cards}</div>'
+        top_row += (
+            '<div class="ctx-group">'
+            '<div class="ctx-label">Commerce leadership — same level, all report to the Secretary</div>'
+            f'<div class="ctx-cards">{cards}</div></div>'
         )
 
-    ed_card = seat_card_html(ed, candidates) if ed else ""
+    deputy_html = ""
+    if deputies:
+        cards = "".join(seat_card_html(s, candidates, is_head=True) for s in deputies)
+        deputy_html = f'<div class="org-connector"></div><div class="org-row">{cards}</div>'
+
     return (
         '<div class="org-scroll"><div class="org">'
         f'<div class="org-row">{seat_card_html("Secretary of Commerce", None, external=True)}</div>'
-        f'{context_html}'
         '<div class="org-connector"></div>'
-        f'<div class="org-row">{ed_card}</div>'
+        f'<div class="org-row top-row">{top_row}</div>'
+        f'{deputy_html}'
         f'<div class="branches">{"".join(branches)}</div>'
         '</div></div>'
     )
@@ -431,6 +449,8 @@ def candidate_card_html(c, seat_titles, source_names):
     chips = [chip("→ " + esc(seat_titles.get(t, t))) for t in c.get("target_seats", [])]
     if c.get("via"):
         chips.append(chip("via " + esc(source_names.get(c["via"], c["via"]))))
+    elif c.get("origin"):
+        chips.append(chip("via " + esc(c["origin"])))
     if c.get("clearance") and c["clearance"] != "unknown":
         chips.append(chip("clearance: " + esc(c["clearance"])))
     if c.get("conflicts"):
@@ -445,28 +465,20 @@ def candidate_card_html(c, seat_titles, source_names):
 def pipeline_tab_html(candidates, seats, sources):
     seat_titles = {s["id"]: s["title"] for s in seats}
     source_names = {s["id"]: s["name"] for s in sources}
-    active = [c for c in candidates if c.get("stage") in ACTIVE_STAGES]
-    if not active:
-        board = '<div class="empty">No candidates in play yet.</div>'
-    else:
-        cols = []
-        for stage in ACTIVE_STAGES:
-            group = [c for c in active if c["stage"] == stage]
-            if not group:
-                continue
-            cards = "".join(candidate_card_html(c, seat_titles, source_names) for c in group)
-            cols.append(
-                f'<div class="col"><div class="col-head">'
-                f'<span class="dot" style="background:var({STAGE_DOT[stage]})"></span>'
-                f'{STAGE_LABELS[stage]} <span class="n">{len(group)}</span></div>{cards}</div>'
-            )
-        board = f'<div class="board">{"".join(cols)}</div>'
-    bench = [c for c in candidates if c.get("stage") == "bench"]
-    if bench:
-        cards = "".join(candidate_card_html(c, seat_titles, source_names) for c in bench)
-        board += (f'<div class="section-h">Bench — good people, no current seat ({len(bench)})</div>'
-                  f'<div class="seatlist">{cards}</div>')
-    return board
+    cols = []
+    for stage in ACTIVE_STAGES + ["stalled"]:
+        group = [c for c in candidates if c.get("stage") == stage]
+        if stage == "stalled" and not group:
+            continue
+        cards = "".join(candidate_card_html(c, seat_titles, source_names) for c in group)
+        dot = (f'<span class="dot" style="background:var({STAGE_DOT[stage]})"></span>'
+               if stage in STAGE_DOT else "")
+        cols.append(
+            f'<div class="col"><div class="col-head">{dot}'
+            f'{STAGE_LABELS[stage]} <span class="n">{len(group)}</span></div>'
+            f'{cards or "<div class=empty>—</div>"}</div>'
+        )
+    return f'<div class="board">{"".join(cols)}</div>'
 
 
 def source_card_html(s, cand_names):
@@ -494,6 +506,8 @@ def sourcing_tab_html(sources, candidates):
     cols = []
     for status, label in SOURCE_COLUMNS:
         group = [s for s in sources if s["status"] == status]
+        if status == "dry" and not group:
+            continue
         cards = "".join(source_card_html(s, cand_names) for s in group)
         dot = (f'<span class="dot" style="background:var({STAGE_DOT[status]})"></span>'
                if status in STAGE_DOT else "")
@@ -542,7 +556,8 @@ def dashboard_html(seats, candidates, sources):
     total = sum(s.get("headcount", 1) for s in usia_seats)
     filled = sum(filled_positions(s) for s in usia_seats)
     active = [c for c in candidates if c.get("stage") in ACTIVE_STAGES]
-    interviewing = len([c for c in active if c["stage"] == "interviewing"])
+    waiting = len([c for c in active if c["stage"] == "waiting"])
+    screening = len([c for c in active if c["stage"] == "screening"])
     worked = [s for s in sources if s["status"] != "to-call"]
     producing = len([s for s in sources if s["status"] == "produced"])
     to_call = [s for s in sources if s["status"] == "to-call"]
@@ -560,7 +575,7 @@ def dashboard_html(seats, candidates, sources):
         f'<div class="tile"><div class="v">{filled}<small> / {total}</small></div>'
         f'<div class="l">Positions filled</div></div>'
         f'<div class="tile"><div class="v">{len(active)}</div><div class="l">Candidates in play</div>'
-        f'<div class="d">{interviewing} interviewing</div></div>'
+        f'<div class="d">{waiting} waiting · {screening} in screening</div></div>'
         f'<div class="tile"><div class="v">{len(worked)}</div><div class="l">Sources worked</div>'
         f'<div class="d">{producing} produced names</div></div>'
         f'<div class="tile"><div class="v">{len(to_call)}</div><div class="l">Still to call</div>'

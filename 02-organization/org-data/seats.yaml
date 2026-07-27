@@ -1,7 +1,7 @@
 # Seat Records — the org chart as data
 # ------------------------------------
-# One record per seat (position). Seats are stable; people are not. Candidates
-# flow toward seats in candidates.yaml and join on the seat `id`.
+# One record per box on the chart. Filled boxes are individuals; open roles are
+# dashed boxes (multi-position roles use headcount, e.g. "3 open seats").
 #
 # Edit this file, then regenerate the views:
 #     python3 tools/generate_org_views.py
@@ -10,6 +10,8 @@
 # Controlled vocabularies
 #   status:           defined | approved | sourcing | interviewing | selected |
 #                     clearance-ethics | filled | hold
+#                     (labels shown: Not started / Approved / Sourcing / In talks /
+#                      Selected / In screening / On board / On hold)
 #   team:             leadership | investment | legal | research | front-office |
 #                     advisors | chips | commerce
 #   hiring_authority: detailee | ipa | sge | secondee | excepted | direct-hire |
@@ -17,17 +19,29 @@
 #   funded:           yes | no | tbd
 #
 # Optional fields:
-#   incumbent:        name, once filled. For multi-headcount seats use a list —
-#                     incumbent: ["A. Name", "B. Name"] — and the views show n of N.
-#   acting:           someone covering the seat without holding it
+#   incumbent:        name, once filled
 #   lead:             true — leadership seat; gets the accent bar on the chart
-#   context: true     Commerce-level seat shown for context around USIA; drawn
-#                     beside the Secretary, excluded from USIA hiring counts
-#   wave:             hiring priority group (1 = now, 2 = sequenced behind wave 1)
+#   tier: deputy      drawn on its own row between the ED and the teams
+#   context: true     Commerce-level seat drawn small beside the ED at the top —
+#                     same level as the ED (they all report to the Secretary);
+#                     excluded from USIA hiring counts
+#   wave:             hiring priority (1 = now, 2 = sequenced behind wave 1)
 
 seats:
 
-  # ---- Department of Commerce context (not USIA) ---------------------------
+  # ---- Top row: ED + Commerce leadership (all report to the Secretary) -----
+
+  - id: ed
+    title: Executive Director
+    team: leadership
+    reports_to: secretary
+    headcount: 1
+    status: filled
+    hiring_authority: schedule-c
+    funded: yes
+    incumbent: "AMS"
+    notes: "Reports directly to the Secretary — same level as Commerce
+      leadership row."
 
   - id: commerce-cos
     title: Chief of Staff, Commerce
@@ -75,45 +89,72 @@ seats:
     incumbent: "Prashanth"
     notes: "Reports directly to the Secretary but is working with USIA."
 
-  # ---- USIA ----------------------------------------------------------------
+  # ---- Deputy layer --------------------------------------------------------
 
-  - id: ed
-    title: Executive Director
+  - id: deputy
+    title: Deputy Director (acting)
     team: leadership
-    reports_to: secretary
-    headcount: 1
-    status: filled
-    hiring_authority: schedule-c
-    funded: yes
-    incumbent: "AMS"
-    notes: "Reports directly to the Secretary of Commerce."
-
-  # ---- Investment ----------------------------------------------------------
-
-  - id: investment-team
-    title: Investment Team
-    team: investment
-    reports_to: ed
-    headcount: 5
-    wave: 1
-    status: interviewing
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: ["Jacob", "Abhiram"]
-    notes: "3 more investment people needed. A secondee ask to Related (Jeff
-      Blau) may cover one of the three — confirm whether it's additive."
-
-  - id: minerals-loan
-    title: Critical Minerals (on loan — ITA)
-    team: investment
+    tier: deputy
+    lead: true
     reports_to: ed
     headcount: 1
     status: filled
     hiring_authority: detailee
     funded: yes
-    incumbent: "Joshua Kroon"
-    notes: "DAS in ITA for critical minerals; currently helping out USIA and
-      may stay around a while. Not a formal USIA billet yet."
+    incumbent: "Josh Kroon"
+    notes: "Deputy Assistant Secretary of Commerce for minerals, mining,
+      textiles, etc. (ITA); currently acting as USIA deputy director."
+
+  # ---- Investment ----------------------------------------------------------
+
+  - id: head-investments
+    title: Head of Investments
+    team: investment
+    lead: true
+    reports_to: ed
+    headcount: 1
+    wave: 1
+    status: clearance-ethics
+    hiring_authority: tbd
+    funded: tbd
+    incumbent: null
+    notes: "Working title — a deputy-director/head-of-investments level seat
+      above the investment team; final title TBD. Jonathan Goldberg in
+      screening for it."
+
+  - id: inv-jacob
+    title: Investment
+    team: investment
+    reports_to: ed
+    headcount: 1
+    status: filled
+    hiring_authority: tbd
+    funded: yes
+    incumbent: "Jacob"
+
+  - id: inv-abhiram
+    title: Investment
+    team: investment
+    reports_to: ed
+    headcount: 1
+    status: filled
+    hiring_authority: tbd
+    funded: yes
+    incumbent: "Abhiram"
+
+  - id: inv-open
+    title: Investment Team
+    team: investment
+    reports_to: ed
+    headcount: 3
+    wave: 1
+    status: interviewing
+    hiring_authority: tbd
+    funded: tbd
+    incumbent: null
+    notes: "Multiple seats — 3 shown as the working number. Will Su and Kobe
+      (detailing in from ITA) and the Related/Morgan Stanley secondee asks may
+      cover some of these."
 
   # ---- Legal ---------------------------------------------------------------
 
@@ -124,22 +165,33 @@ seats:
     reports_to: ed
     headcount: 1
     wave: 1
-    status: sourcing
+    status: interviewing
     hiring_authority: tbd
     funded: tbd
     incumbent: null
-    notes: "Two candidates identified. Hiring the legal associates and paralegal
-      gets easier once this seat is filled — GC recruits their own team."
+    notes: "Need one. Two strong candidates; senior-level hires face
+      divestiture and disclosure after they say yes. Legal associates and
+      paralegal get easier to recruit once the GC is aboard."
 
-  - id: legal-team
-    title: Legal Team
+  - id: legal-tyler
+    title: Legal
     team: legal
     reports_to: ed
-    headcount: 2
+    headcount: 1
     status: filled
     hiring_authority: tbd
     funded: yes
-    incumbent: ["Tyler", "Iac"]
+    incumbent: "Tyler"
+
+  - id: legal-iac
+    title: Legal
+    team: legal
+    reports_to: ed
+    headcount: 1
+    status: filled
+    hiring_authority: tbd
+    funded: yes
+    incumbent: "Iac"
 
   - id: legal-assoc
     title: Senior Associate — Legal
@@ -167,7 +219,19 @@ seats:
 
   # ---- Research ------------------------------------------------------------
 
-  - id: research-team
+  - id: research-matt
+    title: Research
+    team: research
+    reports_to: ed
+    headcount: 1
+    status: filled
+    hiring_authority: tbd
+    funded: yes
+    incumbent: "Matt"
+    notes: "Long Commerce tenure — also canvassing inside the Department, where
+      the fastest pulls come from."
+
+  - id: research-open
     title: Research
     team: research
     reports_to: ed
@@ -176,10 +240,9 @@ seats:
     status: sourcing
     hiring_authority: secondee
     funded: tbd
-    incumbent: ["Matt"]
-    notes: "Second seat targeted as a BCG secondee. Matt is also canvassing
-      inside Commerce — fastest pulls come from within the Department, and he
-      knows where to go."
+    incumbent: null
+    notes: "Multiple seats — 2 shown as the working number. BCG secondee ask
+      out; internal-Commerce pulls via Matt."
 
   # ---- Front office --------------------------------------------------------
 
@@ -196,17 +259,38 @@ seats:
     incumbent: null
     notes: "Top structural need. No slate identified yet."
 
+  - id: ea
+    title: Executive Assistant
+    team: front-office
+    reports_to: ed
+    headcount: 1
+    wave: 1
+    status: defined
+    hiring_authority: tbd
+    funded: tbd
+    incumbent: null
+
   # ---- Senior advisors -----------------------------------------------------
 
-  - id: advisors
-    title: Senior Advisors (SGE)
+  - id: adv-aron
+    title: Senior Advisor (SGE)
     team: advisors
     reports_to: ed
-    headcount: 2
+    headcount: 1
     status: filled
     hiring_authority: sge
     funded: yes
-    incumbent: ["Aron", "Jon Sobel"]
+    incumbent: "Aron"
+
+  - id: adv-sobel
+    title: Senior Advisor (SGE)
+    team: advisors
+    reports_to: ed
+    headcount: 1
+    status: filled
+    hiring_authority: sge
+    funded: yes
+    incumbent: "Jon Sobel"
 
   # ---- CHIPS ---------------------------------------------------------------
 

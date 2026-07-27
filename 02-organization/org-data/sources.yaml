@@ -10,11 +10,13 @@
 # Controlled vocabularies
 #   type:    private | government | person | group
 #   status:  to-call | called-waiting | produced | dry
+#            (columns shown: Need to call / Called — waiting / Produced;
+#             Dry only appears once something lands there)
 #   ball_in_court: them | us   (optional; only while called-waiting)
 #
 # Fields
 #   for:        what we're fishing for, free text
-#   why:        rationale for calling (esp. on the to-call list)
+#   why:        rationale for calling (esp. on the need-to-call list)
 #   produced:   list of candidate ids this source yielded
 #   log:        dated notes, newest first — what they actually said
 #
@@ -23,16 +25,7 @@
 
 sources:
 
-  - id: joshua-kroon
-    name: "Joshua Kroon"
-    type: person
-    status: produced
-    for: "investment team"
-    last_contact: 2026-07-27
-    produced: [will-su, kobe]
-    log:
-      - date: 2026-07-27
-        note: "DAS at ITA, helping USIA day-to-day; sent Will Su and Kobe."
+  # ---- Called — waiting ----------------------------------------------------
 
   - id: jeff-blau-related
     name: "Jeff Blau (Related)"
@@ -43,23 +36,40 @@ sources:
     last_contact: 2026-07-27
     log:
       - date: 2026-07-27
-        note: "ED asked for an investment secondee."
+        note: "Asked for an investment secondee."
 
-  - id: bcg
-    name: "BCG"
-    type: private
-    status: to-call
-    for: "research secondee"
-    why: "ED wants a BCG secondee for the research team."
-
-  - id: commerce-internal
-    name: "Commerce internal (via Matt)"
-    type: government
+  - id: bcg-america
+    name: "BCG America President"
+    type: person
     status: called-waiting
-    for: "research + internal pulls"
+    for: "research secondee"
     ball_in_court: them
     last_contact: 2026-07-27
     log:
       - date: 2026-07-27
-        note: "Fastest hires come from inside the Department; Matt has been at
-          Commerce a long time and knows where to go for people and info."
+        note: "Asked for a research secondee."
+
+  - id: michael-grimes
+    name: "Michael Grimes (Morgan Stanley)"
+    type: person
+    status: called-waiting
+    for: "secondee"
+    ball_in_court: them
+    last_contact: 2026-07-27
+    log:
+      - date: 2026-07-27
+        note: "Asked for a secondee."
+
+  - id: bill-frauenhoffer
+    name: "Bill Frauenhoffer (CHIPS)"
+    type: person
+    status: called-waiting
+    for: "people — roles unspecified"
+    ball_in_court: them
+    last_contact: 2026-07-27
+    log:
+      - date: 2026-07-27
+        note: "Asked for people; which roles not specified."
+
+  # ---- Need to call --------------------------------------------------------
+  # (to be filled in — see the idea list; add records here as the ED picks)

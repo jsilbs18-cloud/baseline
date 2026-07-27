@@ -1,53 +1,80 @@
 # Candidate Records — the hiring pipeline as data
 # -----------------------------------------------
 # One record per candidate. Candidates join to seats (seats.yaml) via
-# `target_seats` and to their origin (sources.yaml) via `via`.
+# `target_seats` and to their origin (sources.yaml) via `via`, or free-text
+# `origin` when the origin isn't a tracked source.
 #
 # Edit this file, then regenerate the views:
 #     python3 tools/generate_org_views.py
 #
+# The pipeline mirrors how hiring actually works here: the ED decides who he
+# wants, then they go through the approval machinery, then they start.
+#
 # Controlled vocabularies
-#   stage:      sourced | screened | interviewing | selected | clearance-ethics |
-#               eod | bench | hold | declined | withdrawn
+#   stage:      to-meet | waiting | screening | cleared | stalled |
+#               joined | passed | withdrawn
+#                 to-meet    identified, haven't spoken yet
+#                 waiting    spoken; ED wants them / waiting to hear back
+#                 screening  said yes; in the approval machinery (divestiture,
+#                            disclosure, detail paperwork, clearance)
+#                 cleared    approved — start date being set
+#                 stalled    parked / gone quiet (still visible, own column)
+#                 joined     on board (also flip the seat to `filled`)
+#                 passed     we passed
+#                 withdrawn  candidate withdrew
 #   source:     referral | search | detailee | ipa | inbound | network
 #   clearance:  active | eligible | none | unknown
-#
-# Fields
-#   via:   id of the source (sources.yaml) that produced this candidate
-#   log:   dated notes, newest first — interview reads, what they said, status
 #
 # Handling: this file contains PII and pre-decisional personnel assessments.
 # Keep the repository access-controlled.
 
 candidates:
 
-  # ---- Investment ----------------------------------------------------------
+  # ---- To meet -------------------------------------------------------------
 
-  - id: will-su
-    name: "Will Su"
-    target_seats: [investment-team]
-    stage: sourced
+  - id: komaroff
+    name: "Jack Komaroff"
+    current_role: "Stanford"
+    target_seats: [inv-open]
+    stage: to-meet
     owner: ed
-    source: referral
-    via: joshua-kroon
+    source: network
     clearance: unknown
     updated: 2026-07-27
 
-  - id: kobe
-    name: "Kobe"
-    target_seats: [investment-team]
-    stage: sourced
+  # ---- Waiting to hear -----------------------------------------------------
+
+  - id: eric-kadell
+    name: "Eric Kadell"
+    target_seats: [gc]
+    stage: waiting
     owner: ed
-    source: referral
-    via: joshua-kroon
+    source: network
     clearance: unknown
+    log:
+      - date: 2026-07-27
+        note: "Great candidate. Once he says yes: divestiture and disclosure —
+          senior-level hire."
+    updated: 2026-07-27
+
+  - id: rachel-sheridan
+    name: "Rachel Sheridan"
+    target_seats: [gc]
+    stage: waiting
+    owner: ed
+    source: network
+    clearance: unknown
+    log:
+      - date: 2026-07-27
+        note: "Great candidate. Same senior-level divestiture/disclosure path
+          as Kadell."
     updated: 2026-07-27
 
   - id: andrew-karmin
     name: "Andrew Karmin"
     current_role: "Formerly Jefferies IB"
-    target_seats: [investment-team]
-    stage: interviewing
+    target_seats: [inv-open]
+    stage: waiting
     owner: ed
     source: network
     clearance: unknown
@@ -59,8 +86,8 @@ candidates:
   - id: jeff-holiday
     name: "Jeff Holiday"
     current_role: "Formerly Goldman Sachs"
-    target_seats: [investment-team]
-    stage: interviewing
+    target_seats: [inv-open]
+    stage: waiting
     owner: ed
     source: network
     clearance: unknown
@@ -71,8 +98,8 @@ candidates:
 
   - id: antonia
     name: "Antonia"
-    target_seats: [investment-team]   # role not confirmed — verify
-    stage: selected
+    target_seats: [inv-open]   # team not confirmed — verify
+    stage: waiting
     owner: ed
     source: network
     clearance: unknown
@@ -81,46 +108,74 @@ candidates:
         note: "Deciding between USIA and a job at Dow."
     updated: 2026-07-27
 
-  - id: komaroff
-    name: "Komaroff"
-    current_role: "Stanford"
-    target_seats: []                  # role not stated yet — junior hire, TBD
-    stage: sourced
+  # ---- In screening --------------------------------------------------------
+
+  - id: will-su
+    name: "Will Su"
+    target_seats: [inv-open, research-open]
+    stage: screening
     owner: ed
-    source: network
+    source: detailee
+    origin: "Josh Kroon"
     clearance: unknown
+    log:
+      - date: 2026-07-27
+        note: "Detail from ITA to USIA in motion. Investment/research."
     updated: 2026-07-27
 
-  # ---- General Counsel -----------------------------------------------------
-
-  - id: eric-kadell
-    name: "Eric Kadell"
-    target_seats: [gc]
-    stage: screened
+  - id: kobe
+    name: "Kobe"
+    target_seats: [inv-open, research-open]
+    stage: screening
     owner: ed
-    source: network
+    source: detailee
+    origin: "Josh Kroon"
     clearance: unknown
+    log:
+      - date: 2026-07-27
+        note: "Detail from ITA to USIA in motion. Investment/research."
     updated: 2026-07-27
-
-  - id: rachel-sheridan
-    name: "Rachel Sheridan"
-    target_seats: [gc]
-    stage: screened
-    owner: ed
-    source: network
-    clearance: unknown
-    updated: 2026-07-27
-
-  # ---- Furthest along ------------------------------------------------------
 
   - id: jonathan-goldberg
     name: "Jonathan Goldberg"
-    target_seats: []                  # role not stated — confirm which seat
-    stage: clearance-ethics
+    target_seats: [head-investments]
+    stage: screening
     owner: ed
     source: network
     clearance: unknown
     log:
       - date: 2026-07-27
-        note: "Deep in the process; targeting an early-September start."
+        note: "In the screening/divestiture process. Would sit above the
+          investment team — deputy-director / head-of-investments level, final
+          title TBD. Targeting an early-September start."
+    updated: 2026-07-27
+
+  # ---- Stalled -------------------------------------------------------------
+
+  - id: anthony
+    name: "Anthony"
+    target_seats: []
+    stage: stalled
+    owner: ed
+    source: network
+    clearance: unknown
+    updated: 2026-07-27
+
+  - id: matt-candidate
+    name: "Matt (candidate)"
+    target_seats: []
+    stage: stalled
+    owner: ed
+    source: network
+    clearance: unknown
+    notes: "Not the Matt on the research team — last name TBD."
+    updated: 2026-07-27
+
+  - id: michigan-swimmer
+    name: "Michigan swimmer (name TBD)"
+    target_seats: []
+    stage: stalled
+    owner: ed
+    source: network
+    clearance: unknown
     updated: 2026-07-27
