@@ -393,10 +393,7 @@ def seat_card_html(seat, candidates, is_head=False, external=False):
 def org_tab_html(seats, candidates):
     ed = next((s for s in seats if s["id"] == "ed"), None)
     context = [s for s in seats if s.get("context")]
-    deputies = [s for s in seats
-                if s.get("tier") == "deputy" and not s.get("context")]
-    usia = [s for s in seats if not s.get("context") and s["id"] != "ed"
-            and s.get("tier") != "deputy"]
+    usia = [s for s in seats if not s.get("context") and s["id"] != "ed"]
 
     teams_seen = list(dict.fromkeys(s.get("team", "") for s in usia))
     order = [t for t in BRANCH_ORDER if t in teams_seen] \
@@ -407,10 +404,14 @@ def org_tab_html(seats, candidates):
         if not group:
             continue
         label = BRANCH_LABELS.get(team, team.replace("-", " ").title())
-        cards = [seat_card_html(s, candidates, is_head=bool(s.get("lead"))) for s in group]
+        # tier: deputy seats sit above the column, outside its label
+        above = "".join(seat_card_html(s, candidates, is_head=True)
+                        for s in group if s.get("tier") == "deputy")
+        cards = "".join(seat_card_html(s, candidates, is_head=bool(s.get("lead")))
+                        for s in group if s.get("tier") != "deputy")
         branches.append(
-            f'<div class="branch"><div class="branch-label">{esc(label)}</div>'
-            + "".join(cards) + "</div>"
+            f'<div class="branch">{above}'
+            f'<div class="branch-label">{esc(label)}</div>{cards}</div>'
         )
 
     ed_card = seat_card_html(ed, candidates) if ed else ""
@@ -426,17 +427,11 @@ def org_tab_html(seats, candidates):
     else:
         top_row += "<div></div>"
 
-    deputy_html = ""
-    if deputies:
-        cards = "".join(seat_card_html(s, candidates, is_head=True) for s in deputies)
-        deputy_html = f'<div class="org-connector"></div><div class="org-row">{cards}</div>'
-
     return (
         '<div class="org-scroll"><div class="org">'
         f'<div class="org-row">{seat_card_html("Secretary of Commerce", None, external=True)}</div>'
         '<div class="org-connector"></div>'
         f'<div class="org-row top-row">{top_row}</div>'
-        f'{deputy_html}'
         f'<div class="branches">{"".join(branches)}</div>'
         '</div></div>'
     )

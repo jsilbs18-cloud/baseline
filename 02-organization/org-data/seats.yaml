@@ -94,6 +94,7 @@ seats:
   - id: deputy
     title: Deputy Director (acting)
     team: investment
+    tier: deputy        # drawn above the column, not inside it
     lead: true
     reports_to: ed
     headcount: 1
