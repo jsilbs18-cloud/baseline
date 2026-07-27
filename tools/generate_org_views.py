@@ -289,6 +289,9 @@ CSS = """
   .seat .meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
   .top-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: start; }
   .ed-slot { justify-self: center; }
+  .ed-slot .seat { min-width: 220px; max-width: 240px; padding: 14px 16px; }
+  .ed-slot .seat .role { font-size: 16px; }
+  .ed-slot .seat .who { font-size: 13px; }
   .ctx-group { justify-self: end; max-width: 330px; }
   .ctx-cards { justify-content: flex-end; }
   .ctx-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
@@ -301,7 +304,7 @@ CSS = """
   .ctx-card .meta { display: none; }
   .org { position: relative; }
   .org-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-  .branches { display: grid; justify-content: center; column-gap: 24px; align-items: start; margin-top: 18px; }
+  .branches { display: grid; justify-content: center; column-gap: 24px; align-items: start; margin-top: 4px; }
   .deputy-cell { grid-row: 1; padding-bottom: 14px; }
   .branch { grid-row: 2; display: flex; flex-direction: column; gap: 10px; align-items: stretch; min-width: 180px; }
   .branch > .seat.head { border-top: 3px solid var(--stage-3); }
