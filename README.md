@@ -50,6 +50,11 @@ Plus two supporting pieces:
   origination-analysis.md         Channels, funnel metrics, sector screening method
 06-toolkit/
   federal-funding-and-authorities-map.md  Catalog of federal tools by instrument type
+  entities.yaml                   Counterpart map data — who runs what, researched + verified
+  generated/                      Never hand-edited; rebuilt by tools/
+    counterpart-map.html          Matrix + counterpart cards (screen)
+    counterpart-matrix.pdf        One-page printable matrix for the ED
+    counterpart-cards.pdf         Printable counterpart cards
 07-systems/
   codex-workspace-plan.md         What to build in the CUI environment and how
 tools/

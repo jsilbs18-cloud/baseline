@@ -136,18 +136,18 @@ CSS_SCREEN = CSS_BASE + """
 """
 
 CSS_PRINT_MATRIX = CSS_BASE + """
-  @page { size: letter landscape; margin: 0.35in; }
-  body { background: #fff; font-size: 8.5px; padding: 0; }
-  h1 { font-size: 13px; margin-bottom: 1px; }
-  .sub { color: #52514e; font-size: 8px; margin-bottom: 6px; }
+  @page { size: letter landscape; margin: 0.28in; }
+  body { background: #fff; font-size: 7.6px; padding: 0; }
+  h1 { font-size: 11px; margin-bottom: 0; }
+  .sub { color: #52514e; font-size: 7px; margin-bottom: 4px; }
   table.matrix { border-collapse: collapse; width: 100%; }
-  .matrix th { text-align: left; font-size: 7px; text-transform: uppercase; letter-spacing: .04em;
-               color: #898781; padding: 2px 4px; border-bottom: 1px solid #c3c2b7; }
-  .matrix td { padding: 3px 4px; border-bottom: 0.5px solid #e1e0d9; vertical-align: top; line-height: 1.3; }
+  .matrix th { text-align: left; font-size: 6.5px; text-transform: uppercase; letter-spacing: .03em;
+               color: #898781; padding: 1px 3px; border-bottom: 1px solid #c3c2b7; }
+  .matrix td { padding: 2px 3px; border-bottom: 0.5px solid #e1e0d9; vertical-align: top; line-height: 1.22; }
   .matrix td.ent { font-weight: 650; }
-  .matrix td.ent .r { font-weight: 400; color: #52514e; font-size: 7.5px; }
-  .matrix tr.group td { font-size: 7px; font-weight: 700; text-transform: uppercase;
-                        letter-spacing: .05em; color: #898781; background: #f4f4f1; padding: 2px 4px; }
+  .matrix td.ent .r { font-weight: 400; color: #52514e; font-size: 6.8px; }
+  .matrix tr.group td { font-size: 6.5px; font-weight: 700; text-transform: uppercase;
+                        letter-spacing: .04em; color: #898781; background: #f4f4f1; padding: 1px 3px; }
   .matrix td.angle { background: #edf3fb; }
   .flag { color: #a94442; font-weight: 600; }
 """
@@ -186,9 +186,10 @@ def principal_line(e):
 
 
 def matrix_table(entities, as_of):
-    head = "<tr><th>Entity</th>" + "".join(f"<th>{lbl}</th>" for _c, lbl in MATRIX_COLS) + "</tr>"
+    # "runs" is folded into the Entity cell, so its header is skipped
+    head = "<tr><th>Entity</th>" + "".join(f"<th>{lbl}</th>" for _c, lbl in MATRIX_COLS[1:]) + "</tr>"
     rows = []
-    ncols = len(MATRIX_COLS) + 1
+    ncols = len(MATRIX_COLS)
     for gkey, glabel in GROUPS:
         group = [e for e in entities if e.get("group") == gkey]
         if not group:
