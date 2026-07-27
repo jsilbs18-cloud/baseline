@@ -108,33 +108,37 @@ candidates:
         note: "Deciding between USIA and a job at Dow."
     updated: 2026-07-27
 
-  # ---- In screening --------------------------------------------------------
+  # ---- Cleared to start ----------------------------------------------------
 
   - id: will-su
     name: "Will Su"
     target_seats: [inv-open, research-open]
-    stage: screening
+    stage: cleared
     owner: ed
     source: detailee
     origin: "Josh Kroon"
     clearance: unknown
     log:
       - date: 2026-07-27
-        note: "Detail from ITA to USIA in motion. Investment/research."
+        note: "Cleared to start — detailing from ITA to USIA.
+          Investment/research."
     updated: 2026-07-27
 
   - id: kobe
     name: "Kobe"
     target_seats: [inv-open, research-open]
-    stage: screening
+    stage: cleared
     owner: ed
     source: detailee
     origin: "Josh Kroon"
     clearance: unknown
     log:
       - date: 2026-07-27
-        note: "Detail from ITA to USIA in motion. Investment/research."
+        note: "Cleared to start — detailing from ITA to USIA.
+          Investment/research."
     updated: 2026-07-27
+
+  # ---- In screening --------------------------------------------------------
 
   - id: jonathan-goldberg
     name: "Jonathan Goldberg"

@@ -287,8 +287,10 @@ CSS = """
   .seat .who { color: var(--ink-2); font-size: 12px; margin-top: 2px; }
   .seat .who .fade { color: var(--muted); }
   .seat .meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
-  .top-row { align-items: flex-start; gap: 28px; }
-  .ctx-group { max-width: 560px; }
+  .top-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: start; }
+  .ed-slot { justify-self: center; }
+  .ctx-group { justify-self: end; max-width: 330px; }
+  .ctx-cards { justify-content: flex-end; }
   .ctx-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
                color: var(--muted); margin-bottom: 5px; }
   .ctx-cards { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -366,19 +368,23 @@ def seat_card_html(seat, candidates, is_head=False, external=False):
     filled_n = filled_positions(seat)
     open_cls = "" if filled_n else " open"
     names = ", ".join(esc(n) for n in incumbents_of(seat))
-    if not names:
+    if names:
+        # Filled boxes lead with the person's name; the role is the subline.
+        auth = seat.get("hiring_authority")
+        auth_note = ""
+        if auth not in (None, "tbd", "schedule-c") and auth not in seat["title"].lower():
+            auth_note = f' <span class="fade">· {esc(auth.upper() if auth == "ipa" else auth)}</span>'
+        top, sub = names, esc(seat["title"]) + auth_note
+    else:
         hc = seat.get("headcount", 1)
-        names = "Open" if hc == 1 else f"{hc} open seats"
+        sub = "Open" if hc == 1 else f"{hc} open seats"
         if seat.get("acting"):
-            names += f' · <span class="fade">{esc(seat["acting"])}</span>'
-    auth = seat.get("hiring_authority")
-    fully = filled_n >= seat.get("headcount", 1)
-    auth_note = (f' <span class="fade">· {esc(auth.upper() if auth == "ipa" else auth)}</span>'
-                 if filled_n and fully and auth not in (None, "tbd", "schedule-c") else "")
+            sub += f' · <span class="fade">{esc(seat["acting"])}</span>'
+        top = esc(seat["title"])
     return (
         f'<div class="seat{open_cls}{" head" if is_head else ""}">'
-        f'<div class="role">{esc(seat["title"])}</div>'
-        f'<div class="who">{names}{auth_note}</div>'
+        f'<div class="role">{top}</div>'
+        f'<div class="who">{sub}</div>'
         f'<div class="meta">{seat_status_chip(seat, candidates)}</div>'
         f'</div>'
     )
@@ -408,7 +414,7 @@ def org_tab_html(seats, candidates):
         )
 
     ed_card = seat_card_html(ed, candidates) if ed else ""
-    top_row = f'<div class="ed-slot">{ed_card}</div>'
+    top_row = f'<div></div><div class="ed-slot">{ed_card}</div>'
     if context:
         cards = "".join(f'<div class="ctx-card">{seat_card_html(s, candidates)}</div>'
                         for s in context)
@@ -417,6 +423,8 @@ def org_tab_html(seats, candidates):
             '<div class="ctx-label">Commerce leadership — same level, all report to the Secretary</div>'
             f'<div class="ctx-cards">{cards}</div></div>'
         )
+    else:
+        top_row += "<div></div>"
 
     deputy_html = ""
     if deputies:

@@ -17,7 +17,7 @@ Generated 2026-07-27. **10 of 22 positions filled** · **9 candidates in play** 
 | 2 | Paralegal | legal | Not started | tbd | tbd |  |
 | 2 | Senior Associate — Legal ×2 | legal | Not started | tbd | tbd |  |
 |  | CHIPS Program Office | chips | On board | tbd | yes |  |
-|  | Deputy Director (acting) | leadership | On board | detailee | yes |  |
+|  | Deputy Director (acting) | investment | On board | detailee | yes |  |
 |  | Executive Director | leadership | On board | schedule-c | yes |  |
 |  | Investment | investment | On board | tbd | yes |  |
 |  | Investment | investment | On board | tbd | yes |  |
@@ -37,9 +37,9 @@ Generated 2026-07-27. **10 of 22 positions filled** · **9 candidates in play** 
 | Andrew Karmin | waiting | Investment Team | ed | unknown |
 | Jeff Holiday | waiting | Investment Team | ed | unknown |
 | Antonia | waiting | Investment Team | ed | unknown |
-| Will Su | screening | Investment Team, Research | ed | unknown |
-| Kobe | screening | Investment Team, Research | ed | unknown |
 | Jonathan Goldberg | screening | Head of Investments | ed | unknown |
+| Will Su | cleared | Investment Team, Research | ed | unknown |
+| Kobe | cleared | Investment Team, Research | ed | unknown |
 
 ## Sourcing
 
