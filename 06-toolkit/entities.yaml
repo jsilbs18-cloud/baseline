@@ -1714,6 +1714,7 @@ entities:
     (litigation ongoing)
   - 'Verifier (capacity): cannot-verify'
 - key: usia
+  in_matrix: false   # kept on the cards; omitted from the matrix per ED preference
   name: U.S. Investment Accelerator (USIA), Department of Commerce
   short: USIA (us)
   group: usia

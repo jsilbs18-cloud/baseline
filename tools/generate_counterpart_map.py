@@ -205,7 +205,8 @@ def matrix_table(entities, as_of):
     rows = []
     ncols = len(MATRIX_COLS)
     for gkey, glabel in GROUPS:
-        group = [e for e in entities if e.get("group") == gkey]
+        group = [e for e in entities
+                 if e.get("group") == gkey and e.get("in_matrix", True)]
         if not group:
             continue
         rows.append(f'<tr class="group"><td colspan="{ncols}">{glabel}</td></tr>')
