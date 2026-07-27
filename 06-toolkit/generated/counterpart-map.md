@@ -8,7 +8,7 @@ As of 2026-07-27. Institution view of the toolkit — who runs what, firepower, 
 
 ### CHIPS Program Office (CPO), National Institute of Standards and Technology, U.S. Department of Commerce
 
-- **Runs it:** Bill Frauenhofer — Director, CHIPS Program Office
+- **Runs it:** Bill Frauenhoffer — Director, CHIPS Program Office
 - **Where it sits:** Housed within NIST at the Department of Commerce and, since a March 31, 2025 executive order, administered under the U.S. Investment Accelerator at Commerce; the Director is a non-Senate-confirmed appointee answering to the Secretary of Commerce (Howard Lutnick), and the office is funded by CHIPS Act of 2022 appropriations (P.L. 117-167) that are available until expended rather than by annual appropriations.
 - **Direct funding awards (grants/cooperative agreements)** — Incentive awards for construction, expansion, or modernization of U.S. semiconductor fabrication, packaging, and materials/equipment facilities under Sec. 9902 (15 U.S.C. 4652) ($39 billion appropriated for manufacturing incentives; roughly $33.7 billion in direct-funding awards signed with ~20 companies as of January 2025 (Commerce OIG status report), leaving limited unobligated grant headroom that the current administration is renegotiating)
 - **Direct loans and loan guarantees** — CHIPS Act authority to make or guarantee loans to covered semiconductor projects (Up to $75 billion in direct loan/loan-guarantee principal authorized; only a small fraction committed (e.g., up to $5 billion in proposed loans in the TSMC package), so this authority remains largely untapped as of 2025-2026)

@@ -105,17 +105,19 @@ CSS_SCREEN = CSS_BASE + """
   .tab.active { color: var(--ink); border-bottom-color: var(--ink); }
   .panel { display: none; } .panel.active { display: block; }
   .m-scroll { overflow-x: auto; }
-  table.matrix { border-collapse: collapse; width: 100%; min-width: 1000px; font-size: 12px; }
-  .matrix th { text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
-               color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--grid);
-               position: sticky; top: 0; background: var(--page); }
-  .matrix td { padding: 7px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
-  .matrix td.ent { font-weight: 650; min-width: 130px; }
-  .matrix td.ent .r { font-weight: 400; color: var(--ink-2); font-size: 11px; }
+  table.matrix { border-collapse: collapse; width: 100%; min-width: 1050px; font-size: 12.5px; }
+  .matrix th { text-align: left; font-size: 10px; font-weight: 700; text-transform: uppercase;
+               letter-spacing: .06em; color: var(--muted); padding: 6px 9px 8px;
+               border-bottom: 2px solid var(--ink); position: sticky; top: 0; background: var(--page); }
+  .matrix td { padding: 9px 9px 10px; border-bottom: 1px solid var(--grid);
+               vertical-align: top; line-height: 1.42; color: var(--ink-2); }
+  .matrix td.ent { min-width: 140px; }
+  .matrix td.ent .e { font-weight: 700; color: var(--ink); font-size: 13px; letter-spacing: -0.01em; }
+  .matrix td.ent .r { color: var(--muted); font-size: 11px; margin-top: 2px; }
   .matrix tr.group td { font-size: 10px; font-weight: 700; text-transform: uppercase;
-                        letter-spacing: .06em; color: var(--muted); background: var(--surface);
-                        padding: 5px 8px; border-bottom: 1px solid var(--grid); }
-  .matrix td.angle { background: var(--angle-bg); }
+                        letter-spacing: .09em; color: var(--accent); background: none;
+                        padding: 18px 9px 5px; border-bottom: 1px solid var(--grid); }
+  .matrix td.angle { background: var(--angle-bg); border-left: 2px solid var(--stage-1); }
   .flag { color: #a94442; font-weight: 600; font-size: 10px; }
   .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 14px; }
   .card { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px;
@@ -136,19 +138,25 @@ CSS_SCREEN = CSS_BASE + """
 """
 
 CSS_PRINT_MATRIX = CSS_BASE + """
-  @page { size: letter landscape; margin: 0.28in; }
-  body { background: #fff; font-size: 7.6px; padding: 0; }
-  h1 { font-size: 11px; margin-bottom: 0; }
-  .sub { color: #52514e; font-size: 7px; margin-bottom: 4px; }
+  @page { size: letter landscape; margin: 0.45in; }
+  body { background: #fff; font-size: 9.5px; padding: 0; color: #1a1a19; }
+  h1 { font-size: 16px; letter-spacing: -0.01em; margin-bottom: 1px; }
+  .sub { color: #52514e; font-size: 9px; margin-bottom: 10px; }
   table.matrix { border-collapse: collapse; width: 100%; }
-  .matrix th { text-align: left; font-size: 6.5px; text-transform: uppercase; letter-spacing: .03em;
-               color: #898781; padding: 1px 3px; border-bottom: 1px solid #c3c2b7; }
-  .matrix td { padding: 2px 3px; border-bottom: 0.5px solid #e1e0d9; vertical-align: top; line-height: 1.22; }
-  .matrix td.ent { font-weight: 650; }
-  .matrix td.ent .r { font-weight: 400; color: #52514e; font-size: 6.8px; }
-  .matrix tr.group td { font-size: 6.5px; font-weight: 700; text-transform: uppercase;
-                        letter-spacing: .04em; color: #898781; background: #f4f4f1; padding: 1px 3px; }
-  .matrix td.angle { background: #edf3fb; }
+  .matrix thead { display: table-header-group; }
+  .matrix tr { break-inside: avoid; }
+  .matrix th { text-align: left; font-size: 8px; font-weight: 700; text-transform: uppercase;
+               letter-spacing: .06em; color: #898781; padding: 0 7px 5px;
+               border-bottom: 1.5px solid #0b0b0b; }
+  .matrix td { padding: 7px 7px 8px; border-bottom: 0.6px solid #d8d7d0;
+               vertical-align: top; line-height: 1.38; color: #333; }
+  .matrix td.ent .e { font-weight: 700; font-size: 10px; color: #0b0b0b; letter-spacing: -0.01em; }
+  .matrix td.ent .r { color: #6b6a66; font-size: 8.5px; margin-top: 2px; }
+  .matrix tr.group td { font-size: 8px; font-weight: 700; text-transform: uppercase;
+                        letter-spacing: .09em; color: #2a78d6; background: none;
+                        padding: 14px 7px 4px; border-bottom: 1px solid #c3c2b7; }
+  .matrix tbody tr:first-child td.group { padding-top: 2px; }
+  .matrix td.angle { background: #eef4fc; border-left: 2px solid #9ec5f4; }
   .flag { color: #a94442; font-weight: 600; }
 """
 
@@ -185,9 +193,15 @@ def principal_line(e):
     return line
 
 
+COL_WIDTHS = ["14%", "17%", "18%", "16%", "16%", "19%"]
+
+
 def matrix_table(entities, as_of):
     # "runs" is folded into the Entity cell, so its header is skipped
-    head = "<tr><th>Entity</th>" + "".join(f"<th>{lbl}</th>" for _c, lbl in MATRIX_COLS[1:]) + "</tr>"
+    colgroup = "<colgroup>" + "".join(f'<col style="width:{w}">' for w in COL_WIDTHS) + "</colgroup>"
+    head = ("<thead><tr><th>Entity</th>"
+            + "".join(f"<th>{lbl}</th>" for _c, lbl in MATRIX_COLS[1:])
+            + "</tr></thead>")
     rows = []
     ncols = len(MATRIX_COLS)
     for gkey, glabel in GROUPS:
@@ -197,13 +211,13 @@ def matrix_table(entities, as_of):
         rows.append(f'<tr class="group"><td colspan="{ncols}">{glabel}</td></tr>')
         for e in group:
             m = e.get("matrix") or {}
-            cells = [f'<td class="ent">{esc(e.get("short", e["name"]))}'
+            cells = [f'<td class="ent"><div class="e">{esc(e.get("short", e["name"]))}</div>'
                      f'<div class="r">{m.get("runs", "")}</div></td>']
             for col, _lbl in MATRIX_COLS[1:]:
                 cls = ' class="angle"' if col == "usia" else ""
                 cells.append(f"<td{cls}>{m.get(col, '')}</td>")
             rows.append("<tr>" + "".join(cells) + "</tr>")
-    return f'<table class="matrix">{head}{"".join(rows)}</table>'
+    return f'<table class="matrix">{colgroup}{head}<tbody>{"".join(rows)}</tbody></table>'
 
 
 def card_html(e):

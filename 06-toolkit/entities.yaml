@@ -16,7 +16,7 @@ entities:
   short: CHIPS Program Office
   group: commerce
   principal:
-    name: Bill Frauenhofer
+    name: Bill Frauenhoffer
     title: Director, CHIPS Program Office
     status: confirmed
     as_of: 2025-07
@@ -93,7 +93,7 @@ entities:
     sovereign-pool investments too. Watch: milestone compliance is our own report card, and
     we''re simultaneously asking this office for staff.'
   matrix:
-    runs: Bill Frauenhofer
+    runs: Bill Frauenhoffer
     firepower: $39B grants (~$34B awarded); $75B loan authority, barely used; equity conversions
       (Intel ~10%)
     done: '$33.7B signed awards (~20 cos.: Intel, TSMC, Micron, Samsung…); 2025 pivot — Intel
@@ -109,7 +109,7 @@ entities:
   - https://www.manufacturingdive.com/news/us-government-10-percent-stake-intel-chips-funding-8-9-billion/758518/
   - https://www.semafor.com/article/01/29/2026/longtime-elon-musk-banker-michael-grimes-leaves-commerce-department-to-go-back-to-silicon-valley
   low_confidence:
-  - Frauenhofer's appointment (July 2025) is well sourced, but no July-2026 source explicitly
+  - Frauenhoffer's appointment (July 2025) is well sourced, but no July-2026 source explicitly
     re-confirms he remains Director; no departure has been reported.
   - Lynelle McKay's continued service as Chief Portfolio Management Officer in 2026 is unverified
     (appointment sourced to July 2024).
