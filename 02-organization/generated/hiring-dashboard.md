@@ -37,8 +37,8 @@ Generated 2026-07-27. **9 of 21 positions filled** Â· **9 candidates in play** Â
 | Jeff Holiday | waiting | Investment Team | ed | unknown |
 | Antonia Chapman | waiting | Investment Team | ed | unknown |
 | Jonathan Goldberg | screening | Head of Investments | ed | unknown |
-| Will Su | cleared | Investment Team, Research | ed | unknown |
-| Kobe | cleared | Investment Team, Research | ed | unknown |
+| Will Suh | cleared | Investment Team, Research | ed | unknown |
+| Kobe (Kwabena) Gyimah-Asante | cleared | Investment Team, Research | ed | unknown |
 
 ## Sourcing
 

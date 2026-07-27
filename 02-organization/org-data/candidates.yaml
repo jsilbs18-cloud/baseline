@@ -111,8 +111,7 @@ candidates:
   # ---- Cleared to start ----------------------------------------------------
 
   - id: will-su
-    name: "Will Su"
-    current_role: "BlackRock Infrastructure"
+    name: "Will Suh"
     target_seats: [inv-open, research-open]
     stage: cleared
     owner: ed
@@ -126,7 +125,8 @@ candidates:
     updated: 2026-07-27
 
   - id: kobe
-    name: "Kobe"
+    name: "Kobe (Kwabena) Gyimah-Asante"
+    current_role: "BlackRock Infrastructure"
     target_seats: [inv-open, research-open]
     stage: cleared
     owner: ed
