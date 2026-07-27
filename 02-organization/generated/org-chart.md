@@ -18,11 +18,11 @@ flowchart TD
     inv_abhiram["Investment<br/><i>On board · Abhiram Karuppur</i>"]:::filled
     inv_open["Investment Team<br/><i>In talks · 3 seats · 6 in play</i>"]:::interviewing
     gc["General Counsel (USIA)<br/><i>In talks · 2 in play</i>"]:::interviewing
-    legal_tyler["Legal<br/><i>On board · Tyler Stephes</i>"]:::filled
+    legal_tyler["Legal<br/><i>On board · Tyler Stephens</i>"]:::filled
     legal_iac["Legal<br/><i>On board · Iac Lash</i>"]:::filled
     legal_assoc["Senior Associate — Legal<br/><i>Not started · 2 seats</i>"]:::defined
     paralegal["Paralegal<br/><i>Not started</i>"]:::defined
-    research_matt["Research<br/><i>On board · Matt Petite</i>"]:::filled
+    research_matt["Research<br/><i>On board · Matt Petitt</i>"]:::filled
     research_open["Research<br/><i>Sourcing · 2 seats · 2 in play</i>"]:::sourcing
     cos["Chief of Staff (USIA)<br/><i>Sourcing</i>"]:::sourcing
     ea["Executive Assistant<br/><i>Not started</i>"]:::defined
