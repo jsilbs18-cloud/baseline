@@ -129,7 +129,7 @@ seats:
     status: filled
     hiring_authority: tbd
     funded: yes
-    incumbent: "Jacob"
+    incumbent: "Jacob Ramer"
 
   - id: inv-abhiram
     title: Investment
@@ -139,7 +139,7 @@ seats:
     status: filled
     hiring_authority: tbd
     funded: yes
-    incumbent: "Abhiram"
+    incumbent: "Abhiram Karuppur"
 
   - id: inv-open
     title: Investment Team
@@ -180,7 +180,7 @@ seats:
     status: filled
     hiring_authority: tbd
     funded: yes
-    incumbent: "Tyler"
+    incumbent: "Tyler Stephes"
 
   - id: legal-iac
     title: Legal
@@ -190,7 +190,7 @@ seats:
     status: filled
     hiring_authority: tbd
     funded: yes
-    incumbent: "Iac"
+    incumbent: "Iac Lash"
 
   - id: legal-assoc
     title: Senior Associate — Legal
@@ -279,7 +279,7 @@ seats:
     status: filled
     hiring_authority: sge
     funded: yes
-    incumbent: "Aron"
+    incumbent: "Aron Schwartz"
 
   - id: adv-sobel
     title: Senior Advisor (SGE)

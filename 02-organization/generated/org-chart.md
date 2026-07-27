@@ -14,19 +14,19 @@ flowchart TD
     commerce_cfo["CFO, Commerce<br/><i>On board · Prashanth</i>"]:::filled
     deputy["Deputy Director (acting)<br/><i>On board · Josh Kroon</i>"]:::filled
     head_investments["Head of Investments<br/><i>In screening · 1 in play</i>"]:::clearance_ethics
-    inv_jacob["Investment<br/><i>On board · Jacob</i>"]:::filled
-    inv_abhiram["Investment<br/><i>On board · Abhiram</i>"]:::filled
+    inv_jacob["Investment<br/><i>On board · Jacob Ramer</i>"]:::filled
+    inv_abhiram["Investment<br/><i>On board · Abhiram Karuppur</i>"]:::filled
     inv_open["Investment Team<br/><i>In talks · 3 seats · 6 in play</i>"]:::interviewing
     gc["General Counsel (USIA)<br/><i>In talks · 2 in play</i>"]:::interviewing
-    legal_tyler["Legal<br/><i>On board · Tyler</i>"]:::filled
-    legal_iac["Legal<br/><i>On board · Iac</i>"]:::filled
+    legal_tyler["Legal<br/><i>On board · Tyler Stephes</i>"]:::filled
+    legal_iac["Legal<br/><i>On board · Iac Lash</i>"]:::filled
     legal_assoc["Senior Associate — Legal<br/><i>Not started · 2 seats</i>"]:::defined
     paralegal["Paralegal<br/><i>Not started</i>"]:::defined
     research_matt["Research<br/><i>On board · Matt Petite</i>"]:::filled
     research_open["Research<br/><i>Sourcing · 2 seats · 2 in play</i>"]:::sourcing
     cos["Chief of Staff (USIA)<br/><i>Sourcing</i>"]:::sourcing
     ea["Executive Assistant<br/><i>Not started</i>"]:::defined
-    adv_aron["Senior Advisor (SGE)<br/><i>On board · Aron</i>"]:::filled
+    adv_aron["Senior Advisor (SGE)<br/><i>On board · Aron Schwartz</i>"]:::filled
     adv_sobel["Senior Advisor (SGE)<br/><i>On board · Jon Sobel</i>"]:::filled
 
     secretary -.-> ed
