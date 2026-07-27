@@ -8,10 +8,10 @@ Generated 2026-07-27 from `org-data/`. Box color = seat status; `n in play` = ac
 flowchart TD
     secretary["Secretary of Commerce"]:::external
     ed["Executive Director<br/><i>On board · AMS</i>"]:::filled
-    commerce_cos["Chief of Staff, Commerce<br/><i>On board · Yvette</i>"]:::filled
+    commerce_cos["Chief of Staff, Commerce<br/><i>On board · Yvette DePinto</i>"]:::filled
     commerce_gc["General Counsel, Commerce<br/><i>On board · Cooper Goodfrey</i>"]:::filled
     commerce_chief_counsel["Chief Counsel of Commerce<br/><i>On board · David Shapiro</i>"]:::filled
-    commerce_cfo["CFO, Commerce<br/><i>On board · Prashanth</i>"]:::filled
+    commerce_cfo["CFO, Commerce<br/><i>On board · Prashanth Rajah</i>"]:::filled
     deputy["Deputy Director (acting)<br/><i>On board · Josh Kroon</i>"]:::filled
     head_investments["Head of Investments<br/><i>In screening · 1 in play</i>"]:::clearance_ethics
     inv_jacob["Investment<br/><i>On board · Jacob Ramer</i>"]:::filled

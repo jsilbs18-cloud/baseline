@@ -52,7 +52,7 @@ seats:
     status: filled
     hiring_authority: tbd
     funded: yes
-    incumbent: "Yvette"
+    incumbent: "Yvette DePinto"
 
   - id: commerce-gc
     title: General Counsel, Commerce
@@ -86,7 +86,7 @@ seats:
     status: filled
     hiring_authority: tbd
     funded: yes
-    incumbent: "Prashanth"
+    incumbent: "Prashanth Rajah"
     notes: "Reports directly to the Secretary but is working with USIA."
 
   # ---- Investment ----------------------------------------------------------
