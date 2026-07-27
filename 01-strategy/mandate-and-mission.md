@@ -9,15 +9,20 @@ resolve. Get this signed off before finalizing the org design.
 
 ## Mission (draft)
 
-> The Investment Accelerator delivers the most strategically important private
-> investments in the United States: originating them, structuring the federal package
-> that makes them happen, clearing the regulatory path, and stewarding the government's
-> position after close.
+> The Investment Accelerator deploys allied sovereign capital into America's
+> strategic infrastructure. It manages roughly **$900 billion in investment
+> commitments from the Japan, Korea, and Taiwan agreements** — selecting
+> projects, making capital calls on partner governments, and directing the
+> money into domestic strategic-infrastructure investments — and wraps each
+> deal in the federal package (regulatory path, co-financing, demand-side
+> support) that makes it succeed, then stewards the government's position
+> after close.
 
-## Mandate scope (from EO 14255 and public practice)
+## Mandate scope
 
 | Function | Description |
 |---|---|
+| **Allied sovereign-capital deployment** | The core mandate: manage the ~$900B pool committed under the Japan, Korea, and Taiwan deals — originate and select strategic-infrastructure investments, make capital calls on the partner governments, and invest the proceeds domestically |
 | **Facilitation of major investments** | Serve as the front door and deal team for large-scale (roughly $1B+) investments, domestic and foreign-sourced |
 | **Federal package assembly** | Identify, negotiate, and stack the federal tools (grants, loans, tax credits, offtakes, equity) that close a deal |
 | **Regulatory & permitting navigation** | Reduce regulatory burden on specific deals; coordinate permitting across federal, state, local |
@@ -58,6 +63,8 @@ Each of these needs explicit ED confirmation because adjacent offices will test 
 
 By the end of year two the office should be able to state, with numbers:
 
+0. **Capital deployed** — allied-commitment capital called and invested, and how
+   those investments are performing
 1. **Capital facilitated** — total private investment closed with Accelerator involvement
 2. **Leverage** — ratio of private capital to federal cost across the portfolio
 3. **Speed** — median time from intake to announced deal; permitting time saved
@@ -78,3 +85,11 @@ By the end of year two the office should be able to state, with numbers:
    Accelerator, or does the Accelerator propose and they endorse?
 6. Is there a legislative strategy to make the office permanent, and does that
    change how we build it?
+7. Capital-call governance — who approves a call and at what size; what
+   investment-committee structure sits between the ED and the
+   Secretary/White House; what do the Japan/Korea/Taiwan agreements require
+   procedurally per call?
+8. Fund operations for a ~$900B book — where do treasury, controller, audit,
+   and reporting functions live? (The Commerce CFO working with USIA suggests
+   borrowed Commerce infrastructure at first — does that scale, and when does
+   USIA need its own fund-ops seats?)
