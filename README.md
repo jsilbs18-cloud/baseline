@@ -31,6 +31,12 @@ Plus two supporting pieces:
 02-organization/
   org-design.md                   Three org models with charts; recommended hybrid
   roles-and-hiring.md             Role cards and hiring waves
+  org-data/
+    seats.yaml                    The org chart as data — one record per seat
+    candidates.yaml               The hiring pipeline as data — candidates → seats
+  generated/                      Never hand-edited; rebuilt by tools/
+    org-chart.md                  Visual org chart (Mermaid), color-coded by status
+    hiring-dashboard.md           Action list, seats by wave, pipeline by stage
 03-deal-process/
   deal-lifecycle-and-cadence.md   Stage gates, required artifacts, meeting rhythm, RACI
 04-templates/
@@ -44,6 +50,8 @@ Plus two supporting pieces:
   federal-funding-and-authorities-map.md  Catalog of federal tools by instrument type
 07-systems/
   codex-workspace-plan.md         What to build in the CUI environment and how
+tools/
+  generate_org_views.py           Rebuilds 02-organization/generated/ from org-data/
 ```
 
 ## Information handling
