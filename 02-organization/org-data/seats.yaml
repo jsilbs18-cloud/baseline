@@ -25,10 +25,13 @@
 #   funded:           yes | no | tbd
 #   wave:             1-4, per 02-organization/roles-and-hiring.md
 #
-# Optional per-seat action tracking (shows up on the hiring dashboard):
-#   next_action:      short imperative, e.g. "Confirm billet with Commerce HR"
-#   next_action_date: YYYY-MM-DD
-#   action_owner:     who moves it (ed | cos | hr | ...)
+# Optional fields:
+#   incumbent:        name, once filled. For multi-headcount seats use a list —
+#                     incumbent: ["A. Name", "B. Name"] — and the views show n of N.
+#   acting:           someone covering the seat without holding it, e.g.
+#                     "T. Vance (acting)" — shows on the org chart next to Vacant
+#   next_action / next_action_date / action_owner: optional, only when a concrete
+#                     step exists (e.g. "Confirm billet with Commerce HR")
 
 seats:
 

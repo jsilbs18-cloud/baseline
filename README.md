@@ -34,9 +34,11 @@ Plus two supporting pieces:
   org-data/
     seats.yaml                    The org chart as data — one record per seat
     candidates.yaml               The hiring pipeline as data — candidates → seats
+    sources.yaml                  The sourcing map — who the ED calls for talent
   generated/                      Never hand-edited; rebuilt by tools/
-    org-chart.md                  Visual org chart (Mermaid), color-coded by status
-    hiring-dashboard.md           Action list, seats by wave, pipeline by stage
+    dashboard.html                ED-facing status page (send this file to him)
+    org-chart.md                  Org chart (Mermaid), color-coded by status
+    hiring-dashboard.md           Text dashboard: seats, pipeline, sourcing
 03-deal-process/
   deal-lifecycle-and-cadence.md   Stage gates, required artifacts, meeting rhythm, RACI
 04-templates/

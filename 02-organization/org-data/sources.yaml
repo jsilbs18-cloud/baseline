@@ -1,0 +1,46 @@
+# Source Records — the sourcing/outreach layer
+# ---------------------------------------------
+# One record per place the ED fishes for talent: a company, a government office,
+# an individual person, or a group/association. Sources produce candidates
+# (candidates.yaml), who fill seats (seats.yaml).
+#
+# Edit this file, then regenerate the views:
+#     python3 tools/generate_org_views.py
+#
+# Controlled vocabularies
+#   type:    private | government | person | group
+#   status:  to-call | called-waiting | produced | dry
+#              to-call         on the list, not yet contacted (fill in `why`)
+#              called-waiting  contacted; conversation open
+#              produced        yielded at least one candidate (link via `produced`)
+#              dry             contacted; nothing there (keep the note — it's a map
+#                              of where NOT to spend time, and "dry" can mean
+#                              "revisit next year", say so in the log)
+#   ball_in_court: them | us   (optional; only meaningful while called-waiting —
+#                              not a schedule, just whose move it is)
+#
+# Fields
+#   for:        what we're fishing for, free text ("deal leads", "toolkit team")
+#   why:        rationale for calling — keeps the to-call list a strategy, not names
+#   produced:   list of candidate ids this source yielded
+#   last_contact: date of most recent touch
+#   log:        dated notes, newest first — what they actually said
+#
+# Handling: same as candidates.yaml — these notes are sensitive relationship
+# intelligence. Keep the repository access-controlled.
+
+sources:
+
+  # EXAMPLE RECORD — fictional; delete when you add real sources.
+  - id: example-hargrove
+    name: "EXAMPLE — Hargrove & Co."
+    type: private
+    status: produced
+    for: "sector deal leads"
+    why: "Mining-heavy advisory book; partners rotate out with operator networks."
+    ball_in_court: null
+    last_contact: 2026-07-19
+    produced: [example-doe]
+    log:
+      - date: 2026-07-19
+        note: "Sent one name; says a second principal may free up in the fall."
