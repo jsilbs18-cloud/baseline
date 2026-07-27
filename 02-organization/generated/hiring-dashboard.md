@@ -2,41 +2,43 @@
 
 # Hiring Dashboard (text view)
 
-Generated 2026-07-27. **1 of 24 positions filled** · **1 candidate in play** · **1 sources tracked**. (The ED-facing version is `dashboard.html`.)
+Generated 2026-07-27. **10 of 19 positions filled** · **9 candidates in play** · **4 sources tracked**. (The ED-facing version is `dashboard.html`.)
 
 ## Seats by hiring wave
 
 | Wave | Seat | Team | Status | Authority | Funded | In play |
 |---|---|---|---|---|---|---|
-| 0 | Executive Director | leadership | On board | schedule-c | yes |  |
-| 1 | Chief of Staff | leadership | Not started | tbd | tbd |  |
-| 1 | Head of Deals | leadership | Not started | ipa | tbd | 1 |
-| 1 | Head of Federal Toolkit & Structuring | leadership | Not started | tbd | tbd |  |
-| 1 | Operations & Administration Lead | front-office | Not started | tbd | tbd |  |
-| 1 | Permitting & Regulatory Lead | toolkit-structuring | Not started | tbd | tbd |  |
-| 2 | Deal Lead — Critical Minerals | deals | Not started | tbd | tbd |  |
-| 2 | Deal Lead — Energy & Nuclear | deals | Not started | tbd | tbd |  |
-| 2 | Deal Lead — Pharma & Biomanufacturing | deals | Not started | tbd | tbd |  |
-| 2 | Deal Lead — Semiconductors & AI Infrastructure | deals | Not started | tbd | tbd |  |
-| 2 | Deal Lead — Shipbuilding & Defense Industrial Base | deals | Not started | tbd | tbd |  |
-| 2 | Incentives & Instruments Specialist ×3 | toolkit-structuring | Not started | tbd | tbd |  |
-| 2 | Interagency & State Liaison | front-office | Not started | detailee | tbd |  |
-| 2 | Legal & Agreements Counsel ×2 | toolkit-structuring | Not started | tbd | tbd |  |
-| 2 | Strategy & Analytics ×2 | front-office | Not started | tbd | tbd |  |
-| 3 | CHIPS Portfolio Lead | portfolio | Not started | tbd | tbd |  |
-| 3 | Equity & Special Positions Lead | portfolio | Not started | tbd | tbd |  |
-| 3 | External Affairs | front-office | Not started | tbd | tbd |  |
-| 3 | Head of Portfolio Management | leadership | Not started | tbd | tbd |  |
-| 3 | Origination & Screening Lead | deals | Not started | tbd | tbd |  |
+| 1 | Chief of Staff (USIA) | front-office | Sourcing | tbd | tbd |  |
+| 1 | General Counsel (USIA) | legal | Sourcing | tbd | tbd | 2 |
+| 1 | Investment Team ×5 | investment | Interviewing | tbd | tbd | 5 |
+| 1 | Research ×2 | research | Sourcing | secondee | tbd |  |
+| 2 | Paralegal | legal | Not started | tbd | tbd |  |
+| 2 | Senior Associate — Legal ×2 | legal | Not started | tbd | tbd |  |
+|  | CHIPS Program Office | chips | On board | tbd | yes |  |
+|  | Critical Minerals (on loan — ITA) | investment | On board | detailee | yes |  |
+|  | Executive Director | leadership | On board | schedule-c | yes |  |
+|  | Legal Team ×2 | legal | On board | tbd | yes |  |
+|  | Senior Advisors (SGE) ×2 | advisors | On board | sge | yes |  |
 
 ## Candidate pipeline
 
 | Candidate | Stage | Target seat(s) | Owner | Clearance |
 |---|---|---|---|---|
-| EXAMPLE — Jane Doe | screened | Head of Deals | ed | none |
+| Will Su | sourced | Investment Team | ed | unknown |
+| Kobe | sourced | Investment Team | ed | unknown |
+| Komaroff | sourced |  | ed | unknown |
+| Eric Kadell | screened | General Counsel (USIA) | ed | unknown |
+| Rachel Sheridan | screened | General Counsel (USIA) | ed | unknown |
+| Andrew Karmin | interviewing | Investment Team | ed | unknown |
+| Jeff Holiday | interviewing | Investment Team | ed | unknown |
+| Antonia | selected | Investment Team | ed | unknown |
+| Jonathan Goldberg | clearance-ethics |  | ed | unknown |
 
 ## Sourcing
 
 | Source | Type | Status | For | Produced | Last contact |
 |---|---|---|---|---|---|
-| EXAMPLE — Hargrove & Co. | private | produced | sector deal leads | EXAMPLE — Jane Doe | 2026-07-19 |
+| BCG | private | to-call | research secondee |  |  |
+| Jeff Blau (Related) | person | called-waiting | investment secondee |  | 2026-07-27 |
+| Commerce internal (via Matt) | government | called-waiting | research + internal pulls |  | 2026-07-27 |
+| Joshua Kroon | person | produced | investment team | Will Su, Kobe | 2026-07-27 |

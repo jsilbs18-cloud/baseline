@@ -7,47 +7,37 @@ Generated 2026-07-27 from `org-data/`. Box color = seat status; `n in play` = ac
 ```mermaid
 flowchart TD
     secretary["Secretary of Commerce"]:::external
-    ed["Executive Director<br/><i>On board · TBD — enter name</i>"]:::filled
-    cos["Chief of Staff<br/><i>Not started</i>"]:::defined
-    head_deals["Head of Deals<br/><i>Not started · 1 in play</i>"]:::defined
-    head_toolkit["Head of Federal Toolkit & Structuring<br/><i>Not started</i>"]:::defined
-    head_portfolio["Head of Portfolio Management<br/><i>Not started</i>"]:::defined
-    dl_semis["Deal Lead — Semiconductors & AI Infrastructure<br/><i>Not started</i>"]:::defined
-    dl_minerals["Deal Lead — Critical Minerals<br/><i>Not started</i>"]:::defined
-    dl_energy["Deal Lead — Energy & Nuclear<br/><i>Not started</i>"]:::defined
-    dl_pharma["Deal Lead — Pharma & Biomanufacturing<br/><i>Not started</i>"]:::defined
-    dl_ship["Deal Lead — Shipbuilding & Defense Industrial Base<br/><i>Not started</i>"]:::defined
-    origination["Origination & Screening Lead<br/><i>Not started</i>"]:::defined
-    legal_counsel["Legal & Agreements Counsel<br/><i>Not started · 2 seats</i>"]:::defined
-    permitting["Permitting & Regulatory Lead<br/><i>Not started</i>"]:::defined
-    incentives["Incentives & Instruments Specialist<br/><i>Not started · 3 seats</i>"]:::defined
-    chips_portfolio["CHIPS Portfolio Lead<br/><i>Not started</i>"]:::defined
-    equity_portfolio["Equity & Special Positions Lead<br/><i>Not started</i>"]:::defined
-    ops_admin["Operations & Administration Lead<br/><i>Not started</i>"]:::defined
-    analytics["Strategy & Analytics<br/><i>Not started · 2 seats</i>"]:::defined
-    liaison["Interagency & State Liaison<br/><i>Not started</i>"]:::defined
-    ext_affairs["External Affairs<br/><i>Not started</i>"]:::defined
+    commerce_cos["Chief of Staff, Commerce<br/><i>On board · Yvette</i>"]:::filled
+    commerce_gc["General Counsel, Commerce<br/><i>On board · Cooper Goodfrey</i>"]:::filled
+    commerce_chief_counsel["Chief Counsel of Commerce<br/><i>On board · David Shapiro</i>"]:::filled
+    commerce_cfo["CFO, Commerce<br/><i>On board · Prashanth</i>"]:::filled
+    ed["Executive Director<br/><i>On board · AMS</i>"]:::filled
+    investment_team["Investment Team<br/><i>Interviewing · 5 seats · 5 in play · Jacob, Abhiram</i>"]:::interviewing
+    minerals_loan["Critical Minerals (on loan — ITA)<br/><i>On board · Joshua Kroon</i>"]:::filled
+    gc["General Counsel (USIA)<br/><i>Sourcing · 2 in play</i>"]:::sourcing
+    legal_team["Legal Team<br/><i>On board · 2 seats · Tyler, Iac</i>"]:::filled
+    legal_assoc["Senior Associate — Legal<br/><i>Not started · 2 seats</i>"]:::defined
+    paralegal["Paralegal<br/><i>Not started</i>"]:::defined
+    research_team["Research<br/><i>Sourcing · 2 seats · Matt</i>"]:::sourcing
+    cos["Chief of Staff (USIA)<br/><i>Sourcing</i>"]:::sourcing
+    advisors["Senior Advisors (SGE)<br/><i>On board · 2 seats · Aron, Jon Sobel</i>"]:::filled
+    chips["CHIPS Program Office<br/><i>On board · Bill Frauenhoffer (+ team)</i>"]:::filled
 
+    secretary -.-> commerce_cos
+    secretary -.-> commerce_gc
+    secretary -.-> commerce_chief_counsel
+    secretary -.-> commerce_cfo
     secretary -.-> ed
+    ed --> investment_team
+    ed --> minerals_loan
+    ed --> gc
+    ed --> legal_team
+    ed --> legal_assoc
+    ed --> paralegal
+    ed --> research_team
     ed --> cos
-    ed --> head_deals
-    ed --> head_toolkit
-    ed --> head_portfolio
-    head_deals --> dl_semis
-    head_deals --> dl_minerals
-    head_deals --> dl_energy
-    head_deals --> dl_pharma
-    head_deals --> dl_ship
-    head_deals --> origination
-    head_toolkit --> legal_counsel
-    head_toolkit --> permitting
-    head_toolkit --> incentives
-    head_portfolio --> chips_portfolio
-    head_portfolio --> equity_portfolio
-    cos --> ops_admin
-    cos --> analytics
-    cos --> liaison
-    cos --> ext_affairs
+    ed --> advisors
+    ed --> chips
 
     classDef external fill:#ffffff,stroke:#666,stroke-dasharray: 4 3;
     classDef defined fill:#ececec,stroke:#9e9e9e,stroke-width:2px;

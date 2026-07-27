@@ -10,37 +10,56 @@
 # Controlled vocabularies
 #   type:    private | government | person | group
 #   status:  to-call | called-waiting | produced | dry
-#              to-call         on the list, not yet contacted (fill in `why`)
-#              called-waiting  contacted; conversation open
-#              produced        yielded at least one candidate (link via `produced`)
-#              dry             contacted; nothing there (keep the note — it's a map
-#                              of where NOT to spend time, and "dry" can mean
-#                              "revisit next year", say so in the log)
-#   ball_in_court: them | us   (optional; only meaningful while called-waiting —
-#                              not a schedule, just whose move it is)
+#   ball_in_court: them | us   (optional; only while called-waiting)
 #
 # Fields
-#   for:        what we're fishing for, free text ("deal leads", "toolkit team")
-#   why:        rationale for calling — keeps the to-call list a strategy, not names
+#   for:        what we're fishing for, free text
+#   why:        rationale for calling (esp. on the to-call list)
 #   produced:   list of candidate ids this source yielded
-#   last_contact: date of most recent touch
 #   log:        dated notes, newest first — what they actually said
 #
-# Handling: same as candidates.yaml — these notes are sensitive relationship
-# intelligence. Keep the repository access-controlled.
+# Handling: sensitive relationship intelligence. Keep the repository
+# access-controlled.
 
 sources:
 
-  # EXAMPLE RECORD — fictional; delete when you add real sources.
-  - id: example-hargrove
-    name: "EXAMPLE — Hargrove & Co."
-    type: private
+  - id: joshua-kroon
+    name: "Joshua Kroon"
+    type: person
     status: produced
-    for: "sector deal leads"
-    why: "Mining-heavy advisory book; partners rotate out with operator networks."
-    ball_in_court: null
-    last_contact: 2026-07-19
-    produced: [example-doe]
+    for: "investment team"
+    last_contact: 2026-07-27
+    produced: [will-su, kobe]
     log:
-      - date: 2026-07-19
-        note: "Sent one name; says a second principal may free up in the fall."
+      - date: 2026-07-27
+        note: "DAS at ITA, helping USIA day-to-day; sent Will Su and Kobe."
+
+  - id: jeff-blau-related
+    name: "Jeff Blau (Related)"
+    type: person
+    status: called-waiting
+    for: "investment secondee"
+    ball_in_court: them
+    last_contact: 2026-07-27
+    log:
+      - date: 2026-07-27
+        note: "ED asked for an investment secondee."
+
+  - id: bcg
+    name: "BCG"
+    type: private
+    status: to-call
+    for: "research secondee"
+    why: "ED wants a BCG secondee for the research team."
+
+  - id: commerce-internal
+    name: "Commerce internal (via Matt)"
+    type: government
+    status: called-waiting
+    for: "research + internal pulls"
+    ball_in_court: them
+    last_contact: 2026-07-27
+    log:
+      - date: 2026-07-27
+        note: "Fastest hires come from inside the Department; Matt has been at
+          Commerce a long time and knows where to go for people and info."

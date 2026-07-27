@@ -10,306 +10,213 @@
 # Controlled vocabularies
 #   status:           defined | approved | sourcing | interviewing | selected |
 #                     clearance-ethics | filled | hold
-#                       defined          seat exists on paper only
-#                       approved         billet approved and funded; not yet recruiting
-#                       sourcing         actively building the candidate slate
-#                       interviewing     candidates in interviews
-#                       selected         selection made; pre-clearance/ethics
-#                       clearance-ethics selectee in clearance, ethics, or paperwork
-#                       filled           incumbent on board
-#                       hold             deliberately paused
-#   team (Model C reporting lines): leadership | deals | toolkit-structuring |
-#                     portfolio | front-office
-#   bucket (simple rollup view):    leadership | investment | legal | administrative
-#   hiring_authority: detailee | ipa | sge | excepted | direct-hire | schedule-c | tbd
+#   team:             leadership | investment | legal | research | front-office |
+#                     advisors | chips | commerce
+#   hiring_authority: detailee | ipa | sge | secondee | excepted | direct-hire |
+#                     schedule-c | tbd
 #   funded:           yes | no | tbd
-#   wave:             1-4, per 02-organization/roles-and-hiring.md
 #
 # Optional fields:
 #   incumbent:        name, once filled. For multi-headcount seats use a list —
 #                     incumbent: ["A. Name", "B. Name"] — and the views show n of N.
-#   acting:           someone covering the seat without holding it, e.g.
-#                     "T. Vance (acting)" — shows on the org chart next to Vacant
-#   next_action / next_action_date / action_owner: optional, only when a concrete
-#                     step exists (e.g. "Confirm billet with Commerce HR")
+#   acting:           someone covering the seat without holding it
+#   lead:             true — leadership seat; gets the accent bar on the chart
+#   context: true     Commerce-level seat shown for context around USIA; drawn
+#                     beside the Secretary, excluded from USIA hiring counts
+#   wave:             hiring priority group (1 = now, 2 = sequenced behind wave 1)
 
 seats:
 
-  # ---- Leadership spine ----------------------------------------------------
+  # ---- Department of Commerce context (not USIA) ---------------------------
+
+  - id: commerce-cos
+    title: Chief of Staff, Commerce
+    team: commerce
+    context: true
+    reports_to: secretary
+    headcount: 1
+    status: filled
+    hiring_authority: tbd
+    funded: yes
+    incumbent: "Yvette"
+
+  - id: commerce-gc
+    title: General Counsel, Commerce
+    team: commerce
+    context: true
+    reports_to: secretary
+    headcount: 1
+    status: filled
+    hiring_authority: tbd
+    funded: yes
+    incumbent: "Cooper Goodfrey"
+
+  - id: commerce-chief-counsel
+    title: Chief Counsel of Commerce
+    team: commerce
+    context: true
+    reports_to: secretary
+    headcount: 1
+    status: filled
+    hiring_authority: tbd
+    funded: yes
+    incumbent: "David Shapiro"
+    notes: "Formerly USIA."
+
+  - id: commerce-cfo
+    title: CFO, Commerce
+    team: commerce
+    context: true
+    reports_to: secretary
+    headcount: 1
+    status: filled
+    hiring_authority: tbd
+    funded: yes
+    incumbent: "Prashanth"
+    notes: "Reports directly to the Secretary but is working with USIA."
+
+  # ---- USIA ----------------------------------------------------------------
 
   - id: ed
     title: Executive Director
     team: leadership
-    bucket: leadership
-    reports_to: secretary          # external anchor node
+    reports_to: secretary
     headcount: 1
-    wave: 0
     status: filled
     hiring_authority: schedule-c
     funded: yes
-    incumbent: "TBD — enter name"
-    notes: "Reports directly to the Secretary of Commerce per EO 14255."
+    incumbent: "AMS"
+    notes: "Reports directly to the Secretary of Commerce."
+
+  # ---- Investment ----------------------------------------------------------
+
+  - id: investment-team
+    title: Investment Team
+    team: investment
+    reports_to: ed
+    headcount: 5
+    wave: 1
+    status: interviewing
+    hiring_authority: tbd
+    funded: tbd
+    incumbent: ["Jacob", "Abhiram"]
+    notes: "3 more investment people needed. A secondee ask to Related (Jeff
+      Blau) may cover one of the three — confirm whether it's additive."
+
+  - id: minerals-loan
+    title: Critical Minerals (on loan — ITA)
+    team: investment
+    reports_to: ed
+    headcount: 1
+    status: filled
+    hiring_authority: detailee
+    funded: yes
+    incumbent: "Joshua Kroon"
+    notes: "DAS in ITA for critical minerals; currently helping out USIA and
+      may stay around a while. Not a formal USIA billet yet."
+
+  # ---- Legal ---------------------------------------------------------------
+
+  - id: gc
+    title: General Counsel (USIA)
+    team: legal
+    lead: true
+    reports_to: ed
+    headcount: 1
+    wave: 1
+    status: sourcing
+    hiring_authority: tbd
+    funded: tbd
+    incumbent: null
+    notes: "Two candidates identified. Hiring the legal associates and paralegal
+      gets easier once this seat is filled — GC recruits their own team."
+
+  - id: legal-team
+    title: Legal Team
+    team: legal
+    reports_to: ed
+    headcount: 2
+    status: filled
+    hiring_authority: tbd
+    funded: yes
+    incumbent: ["Tyler", "Iac"]
+
+  - id: legal-assoc
+    title: Senior Associate — Legal
+    team: legal
+    reports_to: ed
+    headcount: 2
+    wave: 2
+    status: defined
+    hiring_authority: tbd
+    funded: tbd
+    incumbent: null
+    notes: "Sequenced behind the GC hire — easier for the GC to recruit."
+
+  - id: paralegal
+    title: Paralegal
+    team: legal
+    reports_to: ed
+    headcount: 1
+    wave: 2
+    status: defined
+    hiring_authority: tbd
+    funded: tbd
+    incumbent: null
+    notes: "Sequenced behind the GC hire."
+
+  # ---- Research ------------------------------------------------------------
+
+  - id: research-team
+    title: Research
+    team: research
+    reports_to: ed
+    headcount: 2
+    wave: 1
+    status: sourcing
+    hiring_authority: secondee
+    funded: tbd
+    incumbent: ["Matt"]
+    notes: "Second seat targeted as a BCG secondee. Matt is also canvassing
+      inside Commerce — fastest pulls come from within the Department, and he
+      knows where to go."
+
+  # ---- Front office --------------------------------------------------------
 
   - id: cos
-    title: Chief of Staff
-    team: leadership
-    bucket: administrative
+    title: Chief of Staff (USIA)
+    team: front-office
+    lead: true
     reports_to: ed
     headcount: 1
     wave: 1
-    status: defined
+    status: sourcing
     hiring_authority: tbd
     funded: tbd
     incumbent: null
-    notes: "Owns the buildout itself; hire first if vacant. Source: senior federal
-      staff or returning private-sector operator."
+    notes: "Top structural need. No slate identified yet."
 
-  - id: head-deals
-    title: Head of Deals
-    team: leadership
-    bucket: investment
+  # ---- Senior advisors -----------------------------------------------------
+
+  - id: advisors
+    title: Senior Advisors (SGE)
+    team: advisors
     reports_to: ed
-    headcount: 1
-    wave: 1
-    status: defined
-    hiring_authority: ipa
-    funded: tbd
-    incumbent: null
-    notes: "Senior banker / PE principal / corp-dev head via IPA or appointment.
-      Owns the pipeline end-to-end and chairs the weekly pipeline meeting."
-
-  - id: head-toolkit
-    title: Head of Federal Toolkit & Structuring
-    team: leadership
-    bucket: investment
-    reports_to: ed
-    headcount: 1
-    wave: 1
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-    notes: "Hardest hire — realistically grown from DOE LPO, EXIM, DFC, or CHIPS
-      Program Office alumni. Prioritize early."
-
-  - id: head-portfolio
-    title: Head of Portfolio Management
-    team: leadership
-    bucket: investment
-    reports_to: ed
-    headcount: 1
-    wave: 3
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-    notes: "Credit/portfolio background — LPO portfolio side, bank workout groups,
-      insurance/pension asset management. Needed once the portfolio exists."
-
-  # ---- Deal organization (reports to Head of Deals) ------------------------
-
-  - id: dl-semis
-    title: Deal Lead — Semiconductors & AI Infrastructure
-    team: deals
-    bucket: investment
-    reports_to: head-deals
-    headcount: 1
-    wave: 2
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-    notes: "Sector credibility non-negotiable; owns the sector chokepoint map and
-      target list."
-
-  - id: dl-minerals
-    title: Deal Lead — Critical Minerals
-    team: deals
-    bucket: investment
-    reports_to: head-deals
-    headcount: 1
-    wave: 2
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-
-  - id: dl-energy
-    title: Deal Lead — Energy & Nuclear
-    team: deals
-    bucket: investment
-    reports_to: head-deals
-    headcount: 1
-    wave: 2
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-
-  - id: dl-pharma
-    title: Deal Lead — Pharma & Biomanufacturing
-    team: deals
-    bucket: investment
-    reports_to: head-deals
-    headcount: 1
-    wave: 2
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-
-  - id: dl-ship
-    title: Deal Lead — Shipbuilding & Defense Industrial Base
-    team: deals
-    bucket: investment
-    reports_to: head-deals
-    headcount: 1
-    wave: 2
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-
-  - id: origination
-    title: Origination & Screening Lead
-    team: deals
-    bucket: investment
-    reports_to: head-deals
-    headcount: 1
-    wave: 3
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-    notes: "Owns the funnel before a deal has a team — intake, screening, channel
-      coverage, sector heat maps."
-
-  # ---- Specialist spine (reports to Head of Toolkit & Structuring) ---------
-
-  - id: legal-counsel
-    title: Legal & Agreements Counsel
-    team: toolkit-structuring
-    bucket: legal
-    reports_to: head-toolkit
     headcount: 2
-    wave: 2
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-    notes: "Deal counsel — term sheets, award agreements, equity documentation.
-      Source: agency GC offices + private M&A/project-finance lawyers. Resolve
-      early: relationship to Commerce OGC (delegated authority vs. detailed
-      counsel), and whether this seat reports to the ED directly instead."
+    status: filled
+    hiring_authority: sge
+    funded: yes
+    incumbent: ["Aron", "Jon Sobel"]
 
-  - id: permitting
-    title: Permitting & Regulatory Lead
-    team: toolkit-structuring
-    bucket: legal
-    reports_to: head-toolkit
+  # ---- CHIPS ---------------------------------------------------------------
+
+  - id: chips
+    title: CHIPS Program Office
+    team: chips
+    reports_to: ed
     headcount: 1
-    wave: 1
-    status: defined
+    status: filled
     hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-    notes: "Owns permitting strategy per deal and the FAST-41 relationship.
-      Source: Permitting Council, agency NEPA shops, project developers."
-
-  - id: incentives
-    title: Incentives & Instruments Specialist
-    team: toolkit-structuring
-    bucket: investment
-    reports_to: head-toolkit
-    headcount: 3
-    wave: 2
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-    notes: "One person deep per instrument family (credit, grants, tax,
-      demand-side). Maintains the toolkit playbook."
-
-  # ---- Portfolio (reports to Head of Portfolio Management) -----------------
-
-  - id: chips-portfolio
-    title: CHIPS Portfolio Lead
-    team: portfolio
-    bucket: investment
-    reports_to: head-portfolio
-    headcount: 1
-    wave: 3
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-
-  - id: equity-portfolio
-    title: Equity & Special Positions Lead
-    team: portfolio
-    bucket: investment
-    reports_to: head-portfolio
-    headcount: 1
-    wave: 3
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-
-  # ---- Front office / CoS spine (reports to Chief of Staff) ----------------
-
-  - id: ops-admin
-    title: Operations & Administration Lead
-    team: front-office
-    bucket: administrative
-    reports_to: cos
-    headcount: 1
-    wave: 1
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-    notes: "Budget execution, HR liaison, space, travel, onboarding. Needed early —
-      every other hire flows through this seat's paperwork."
-
-  - id: analytics
-    title: Strategy & Analytics
-    team: front-office
-    bucket: administrative
-    reports_to: cos
-    headcount: 2
-    wave: 2
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-    notes: "Scoring runs, supply-chain analysis, pipeline metrics, briefing
-      production. Source: consulting/strategy, econ staff."
-
-  - id: liaison
-    title: Interagency & State Liaison
-    team: front-office
-    bucket: administrative
-    reports_to: cos
-    headcount: 1
-    wave: 2
-    status: defined
-    hiring_authority: detailee
-    funded: tbd
-    incumbent: null
-    notes: "Named-counterpart network across agencies and priority states.
-      Source: career interagency veterans — a detailee builds the network as a
-      side effect."
-
-  - id: ext-affairs
-    title: External Affairs
-    team: front-office
-    bucket: administrative
-    reports_to: cos
-    headcount: 1
-    wave: 3
-    status: defined
-    hiring_authority: tbd
-    funded: tbd
-    incumbent: null
-    notes: "Announcements, congressional interest, industry inbound triage."
+    funded: yes
+    incumbent: "Bill Frauenhoffer (+ team)"
+    notes: "Technically reports to the ED; not a current focus."

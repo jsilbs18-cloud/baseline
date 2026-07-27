@@ -36,7 +36,8 @@ CANDIDATE_STAGES = [
     "eod", "bench", "hold", "declined", "withdrawn",
 ]
 ACTIVE_STAGES = ["sourced", "screened", "interviewing", "selected", "clearance-ethics"]
-HIRING_AUTHORITIES = ["detailee", "ipa", "sge", "excepted", "direct-hire", "schedule-c", "tbd"]
+HIRING_AUTHORITIES = ["detailee", "ipa", "sge", "secondee", "excepted", "direct-hire",
+                      "schedule-c", "tbd"]
 SOURCE_TYPES = ["private", "government", "person", "group"]
 SOURCE_STATUSES = ["to-call", "called-waiting", "produced", "dry"]
 
@@ -60,12 +61,14 @@ STAGE_DOT = {
     "selected": "--stage-4", "clearance-ethics": "--stage-5",
     "sourcing": "--stage-1", "filled": "--good", "produced": "--good",
 }
-BRANCH_ORDER = ["deals", "toolkit-structuring", "portfolio", "front-office"]
+BRANCH_ORDER = ["investment", "legal", "research", "front-office", "advisors", "chips"]
 BRANCH_LABELS = {
-    "deals": "Investment — Deals",
-    "toolkit-structuring": "Legal & Structuring",
-    "portfolio": "Investment — Portfolio",
+    "investment": "Investment",
+    "legal": "Legal",
+    "research": "Research",
     "front-office": "Admin / Front Office",
+    "advisors": "Senior Advisors",
+    "chips": "CHIPS",
 }
 # Mermaid chart colors (markdown view)
 MERMAID_STYLES = {
@@ -282,6 +285,10 @@ CSS = """
   .seat .who { color: var(--ink-2); font-size: 12px; margin-top: 2px; }
   .seat .who .fade { color: var(--muted); }
   .seat .meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+  .ctx-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+               color: var(--muted); text-align: center; margin: 12px 0 6px; }
+  .ctx-row { flex-wrap: wrap; }
+  .ctx-card .seat { background: none; border: 1px solid var(--grid); box-shadow: none; }
   .branches { display: flex; justify-content: center; gap: 24px; align-items: flex-start; margin-top: 18px; }
   .branch { display: flex; flex-direction: column; gap: 10px; align-items: stretch; min-width: 180px; }
   .branch > .seat.head { border-top: 3px solid var(--stage-3); }
@@ -356,8 +363,9 @@ def seat_card_html(seat, candidates, is_head=False, external=False):
         if seat.get("acting"):
             names += f' · <span class="fade">{esc(seat["acting"])}</span>'
     auth = seat.get("hiring_authority")
+    fully = filled_n >= seat.get("headcount", 1)
     auth_note = (f' <span class="fade">· {esc(auth.upper() if auth == "ipa" else auth)}</span>'
-                 if filled_n and auth not in (None, "tbd", "schedule-c") else "")
+                 if filled_n and fully and auth not in (None, "tbd", "schedule-c") else "")
     return (
         f'<div class="seat{open_cls}{" head" if is_head else ""}">'
         f'<div class="role">{esc(seat["title"])}</div>'
@@ -368,31 +376,39 @@ def seat_card_html(seat, candidates, is_head=False, external=False):
 
 
 def org_tab_html(seats, candidates):
-    by_id = {s["id"]: s for s in seats}
-    ed = next((s for s in seats if s.get("reports_to") == "secretary"), None)
-    heads = [s for s in seats if s.get("reports_to") == (ed["id"] if ed else None)]
+    ed = next((s for s in seats if s["id"] == "ed"), None)
+    context = [s for s in seats if s.get("context")]
+    usia = [s for s in seats if not s.get("context") and s["id"] != "ed"]
 
-    def branch_key(head):
-        children = [s for s in seats if s.get("reports_to") == head["id"]]
-        team = children[0]["team"] if children else head.get("team", "")
-        return BRANCH_ORDER.index(team) if team in BRANCH_ORDER else 99
-
-    heads.sort(key=branch_key)
+    teams_seen = list(dict.fromkeys(s.get("team", "") for s in usia))
+    order = [t for t in BRANCH_ORDER if t in teams_seen] \
+        + [t for t in teams_seen if t not in BRANCH_ORDER]
     branches = []
-    for head in heads:
-        children = [s for s in seats if s.get("reports_to") == head["id"]]
-        team = children[0]["team"] if children else head.get("team", "")
-        label = BRANCH_LABELS.get(team, head["title"])
-        cards = [seat_card_html(head, candidates, is_head=True)]
-        cards += [seat_card_html(c, candidates) for c in children]
+    for team in order:
+        group = [s for s in usia if s.get("team") == team]
+        if not group:
+            continue
+        label = BRANCH_LABELS.get(team, team.replace("-", " ").title())
+        cards = [seat_card_html(s, candidates, is_head=bool(s.get("lead"))) for s in group]
         branches.append(
             f'<div class="branch"><div class="branch-label">{esc(label)}</div>'
             + "".join(cards) + "</div>"
         )
+
+    context_html = ""
+    if context:
+        cards = "".join(f'<div class="ctx-card">{seat_card_html(s, candidates)}</div>'
+                        for s in context)
+        context_html = (
+            '<div class="ctx-label">Also reporting to the Secretary — Commerce leadership</div>'
+            f'<div class="org-row ctx-row">{cards}</div>'
+        )
+
     ed_card = seat_card_html(ed, candidates) if ed else ""
     return (
         '<div class="org-scroll"><div class="org">'
         f'<div class="org-row">{seat_card_html("Secretary of Commerce", None, external=True)}</div>'
+        f'{context_html}'
         '<div class="org-connector"></div>'
         f'<div class="org-row">{ed_card}</div>'
         f'<div class="branches">{"".join(branches)}</div>'
@@ -490,7 +506,8 @@ def sourcing_tab_html(sources, candidates):
 
 
 def open_seats_tab_html(seats, candidates):
-    open_seats = [s for s in seats if filled_positions(s) < s.get("headcount", 1)]
+    open_seats = [s for s in seats
+                  if not s.get("context") and filled_positions(s) < s.get("headcount", 1)]
     if not open_seats:
         return '<div class="empty">Every seat is filled.</div>'
     waves = sorted({s.get("wave", 99) for s in open_seats})
@@ -521,8 +538,9 @@ def open_seats_tab_html(seats, candidates):
 
 def dashboard_html(seats, candidates, sources):
     today = date.today()
-    total = sum(s.get("headcount", 1) for s in seats)
-    filled = sum(filled_positions(s) for s in seats)
+    usia_seats = [s for s in seats if not s.get("context")]
+    total = sum(s.get("headcount", 1) for s in usia_seats)
+    filled = sum(filled_positions(s) for s in usia_seats)
     active = [c for c in candidates if c.get("stage") in ACTIVE_STAGES]
     interviewing = len([c for c in active if c["stage"] == "interviewing"])
     worked = [s for s in sources if s["status"] != "to-call"]
@@ -633,9 +651,11 @@ def org_chart_md(seats, candidates):
 def dashboard_md(seats, candidates, sources):
     today = date.today()
     active = [c for c in candidates if c.get("stage") in ACTIVE_STAGES]
-    total = sum(s.get("headcount", 1) for s in seats)
-    filled = sum(filled_positions(s) for s in seats)
+    usia_seats = [s for s in seats if not s.get("context")]
+    total = sum(s.get("headcount", 1) for s in usia_seats)
+    filled = sum(filled_positions(s) for s in usia_seats)
     seat_titles = {s["id"]: s["title"] for s in seats}
+    seats = usia_seats  # the wave table covers USIA hiring, not Commerce context
 
     md = [
         "<!-- GENERATED FILE — do not edit. Source: 02-organization/org-data/ ; "

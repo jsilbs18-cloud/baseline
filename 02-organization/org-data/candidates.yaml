@@ -1,9 +1,7 @@
 # Candidate Records — the hiring pipeline as data
 # -----------------------------------------------
 # One record per candidate. Candidates join to seats (seats.yaml) via
-# `target_seats` and to their origin (sources.yaml) via `via` — many-to-many
-# with seats: one candidate can be in play for several seats, one seat can
-# carry several candidates.
+# `target_seats` and to their origin (sources.yaml) via `via`.
 #
 # Edit this file, then regenerate the views:
 #     python3 tools/generate_org_views.py
@@ -11,51 +9,118 @@
 # Controlled vocabularies
 #   stage:      sourced | screened | interviewing | selected | clearance-ethics |
 #               eod | bench | hold | declined | withdrawn
-#                 sourced           identified, not yet assessed
-#                 screened          assessed against the role card; worth pursuing
-#                 interviewing      in interviews
-#                 selected          selection made, offer extended/accepted
-#                 clearance-ethics  security clearance, ethics review, HR paperwork
-#                 eod               entered on duty (also flip the seat to `filled`)
-#                 bench             good person, no current seat — keep for later waves
-#                 hold              paused (timing, budget, candidate availability)
-#                 declined          we passed
-#                 withdrawn         candidate withdrew
 #   source:     referral | search | detailee | ipa | inbound | network
 #   clearance:  active | eligible | none | unknown
-#                 (drives the post-selection timeline more than anything else —
-#                  check it at SCREENING, not at selection)
 #
 # Fields
 #   via:   id of the source (sources.yaml) that produced this candidate
 #   log:   dated notes, newest first — interview reads, what they said, status
-#   next_action / next_action_date: optional — use when there IS a concrete next
-#          step; nothing forces a date on every record
-#
-# Conflicts note: candidates from banking/PE/industry will carry recusal scope.
-# Assess `conflicts` at screening; an SGE advisor with broad deal conflicts may
-# be unusable regardless of talent.
 #
 # Handling: this file contains PII and pre-decisional personnel assessments.
-# Keep the repository access-controlled; move records to the approved
-# environment if your information-handling rules require it.
+# Keep the repository access-controlled.
 
 candidates:
 
-  # EXAMPLE RECORD — fictional; delete when you add real candidates.
-  - id: example-doe
-    name: "EXAMPLE — Jane Doe"
-    current_role: "Managing Director, Example Capital Partners"
-    target_seats: [head-deals]
-    stage: screened
+  # ---- Investment ----------------------------------------------------------
+
+  - id: will-su
+    name: "Will Su"
+    target_seats: [investment-team]
+    stage: sourced
     owner: ed
     source: referral
-    via: example-hargrove
-    clearance: none
-    conflicts: "Active fund positions in two semiconductor names — likely recusal
-      on those issuers; assess breadth before IPA paperwork."
-    availability: "90-day notice period"
+    via: joshua-kroon
+    clearance: unknown
+    updated: 2026-07-27
+
+  - id: kobe
+    name: "Kobe"
+    target_seats: [investment-team]
+    stage: sourced
+    owner: ed
+    source: referral
+    via: joshua-kroon
+    clearance: unknown
+    updated: 2026-07-27
+
+  - id: andrew-karmin
+    name: "Andrew Karmin"
+    current_role: "Formerly Jefferies IB"
+    target_seats: [investment-team]
+    stage: interviewing
+    owner: ed
+    source: network
+    clearance: unknown
     log:
-      - date: 2026-07-22
-        note: "Strong structuring background; ED to decide on interview."
+      - date: 2026-07-27
+        note: "Coming down Thursday (Jul 30)."
+    updated: 2026-07-27
+
+  - id: jeff-holiday
+    name: "Jeff Holiday"
+    current_role: "Formerly Goldman Sachs"
+    target_seats: [investment-team]
+    stage: interviewing
+    owner: ed
+    source: network
+    clearance: unknown
+    log:
+      - date: 2026-07-27
+        note: "Coming down Thursday (Jul 30)."
+    updated: 2026-07-27
+
+  - id: antonia
+    name: "Antonia"
+    target_seats: [investment-team]   # role not confirmed — verify
+    stage: selected
+    owner: ed
+    source: network
+    clearance: unknown
+    log:
+      - date: 2026-07-27
+        note: "Deciding between USIA and a job at Dow."
+    updated: 2026-07-27
+
+  - id: komaroff
+    name: "Komaroff"
+    current_role: "Stanford"
+    target_seats: []                  # role not stated yet — junior hire, TBD
+    stage: sourced
+    owner: ed
+    source: network
+    clearance: unknown
+    updated: 2026-07-27
+
+  # ---- General Counsel -----------------------------------------------------
+
+  - id: eric-kadell
+    name: "Eric Kadell"
+    target_seats: [gc]
+    stage: screened
+    owner: ed
+    source: network
+    clearance: unknown
+    updated: 2026-07-27
+
+  - id: rachel-sheridan
+    name: "Rachel Sheridan"
+    target_seats: [gc]
+    stage: screened
+    owner: ed
+    source: network
+    clearance: unknown
+    updated: 2026-07-27
+
+  # ---- Furthest along ------------------------------------------------------
+
+  - id: jonathan-goldberg
+    name: "Jonathan Goldberg"
+    target_seats: []                  # role not stated — confirm which seat
+    stage: clearance-ethics
+    owner: ed
+    source: network
+    clearance: unknown
+    log:
+      - date: 2026-07-27
+        note: "Deep in the process; targeting an early-September start."
     updated: 2026-07-27
