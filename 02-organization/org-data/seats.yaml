@@ -226,7 +226,7 @@ seats:
     status: filled
     hiring_authority: tbd
     funded: yes
-    incumbent: "Matt"
+    incumbent: "Matt Petite"
     notes: "Long Commerce tenure — also canvassing inside the Department, where
       the fastest pulls come from."
 
@@ -290,16 +290,3 @@ seats:
     hiring_authority: sge
     funded: yes
     incumbent: "Jon Sobel"
-
-  # ---- CHIPS ---------------------------------------------------------------
-
-  - id: chips
-    title: CHIPS Program Office
-    team: chips
-    reports_to: ed
-    headcount: 1
-    status: filled
-    hiring_authority: tbd
-    funded: yes
-    incumbent: "Bill Frauenhoffer (+ team)"
-    notes: "Technically reports to the ED; not a current focus."

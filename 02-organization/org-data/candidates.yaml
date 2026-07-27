@@ -96,8 +96,8 @@ candidates:
         note: "Coming down Thursday (Jul 30)."
     updated: 2026-07-27
 
-  - id: antonia
-    name: "Antonia"
+  - id: antonia-chapman
+    name: "Antonia Chapman"
     target_seats: [inv-open]   # team not confirmed — verify
     stage: waiting
     owner: ed
@@ -112,6 +112,7 @@ candidates:
 
   - id: will-su
     name: "Will Su"
+    current_role: "BlackRock Infrastructure"
     target_seats: [inv-open, research-open]
     stage: cleared
     owner: ed
@@ -156,8 +157,8 @@ candidates:
 
   # ---- Stalled -------------------------------------------------------------
 
-  - id: anthony
-    name: "Anthony"
+  - id: anthony-chammah
+    name: "Anthony Chammah"
     target_seats: []
     stage: stalled
     owner: ed
@@ -165,18 +166,18 @@ candidates:
     clearance: unknown
     updated: 2026-07-27
 
-  - id: matt-candidate
-    name: "Matt (candidate)"
+  - id: matt-gunte
+    name: "Matt Gunte"
     target_seats: []
     stage: stalled
     owner: ed
     source: network
     clearance: unknown
-    notes: "Not the Matt on the research team — last name TBD."
     updated: 2026-07-27
 
-  - id: michigan-swimmer
-    name: "Michigan swimmer (name TBD)"
+  - id: christian-farricker
+    name: "Christian Farricker"
+    notes: "The Michigan swimmer."
     target_seats: []
     stage: stalled
     owner: ed

@@ -22,13 +22,12 @@ flowchart TD
     legal_iac["Legal<br/><i>On board · Iac</i>"]:::filled
     legal_assoc["Senior Associate — Legal<br/><i>Not started · 2 seats</i>"]:::defined
     paralegal["Paralegal<br/><i>Not started</i>"]:::defined
-    research_matt["Research<br/><i>On board · Matt</i>"]:::filled
+    research_matt["Research<br/><i>On board · Matt Petite</i>"]:::filled
     research_open["Research<br/><i>Sourcing · 2 seats · 2 in play</i>"]:::sourcing
     cos["Chief of Staff (USIA)<br/><i>Sourcing</i>"]:::sourcing
     ea["Executive Assistant<br/><i>Not started</i>"]:::defined
     adv_aron["Senior Advisor (SGE)<br/><i>On board · Aron</i>"]:::filled
     adv_sobel["Senior Advisor (SGE)<br/><i>On board · Jon Sobel</i>"]:::filled
-    chips["CHIPS Program Office<br/><i>On board · Bill Frauenhoffer (+ team)</i>"]:::filled
 
     secretary -.-> ed
     secretary -.-> commerce_cos
@@ -51,7 +50,6 @@ flowchart TD
     ed --> ea
     ed --> adv_aron
     ed --> adv_sobel
-    ed --> chips
 
     classDef external fill:#ffffff,stroke:#666,stroke-dasharray: 4 3;
     classDef defined fill:#ececec,stroke:#9e9e9e,stroke-width:2px;

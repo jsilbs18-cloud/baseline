@@ -299,8 +299,11 @@ CSS = """
   .ctx-card .role { font-size: 11px; }
   .ctx-card .who { font-size: 11px; margin-top: 1px; }
   .ctx-card .meta { display: none; }
-  .branches { display: flex; justify-content: center; gap: 24px; align-items: flex-start; margin-top: 18px; }
-  .branch { display: flex; flex-direction: column; gap: 10px; align-items: stretch; min-width: 180px; }
+  .org { position: relative; }
+  .org-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .branches { display: grid; justify-content: center; column-gap: 24px; align-items: start; margin-top: 18px; }
+  .deputy-cell { grid-row: 1; padding-bottom: 14px; }
+  .branch { grid-row: 2; display: flex; flex-direction: column; gap: 10px; align-items: stretch; min-width: 180px; }
   .branch > .seat.head { border-top: 3px solid var(--stage-3); }
   .branch-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
                   color: var(--muted); text-align: center; }
@@ -333,12 +336,35 @@ CSS = """
 """
 
 SCRIPT = """
+  function drawOrgLines() {
+    const svg = document.getElementById('org-lines');
+    if (!svg) return;
+    svg.innerHTML = '';
+    const org = svg.parentElement;
+    const ed = document.getElementById('ed-slot');
+    const dep = document.getElementById('deputy-cell');
+    if (!ed || !dep || !dep.offsetParent) return;
+    const o = org.getBoundingClientRect(), e = ed.getBoundingClientRect(),
+          d = dep.getBoundingClientRect();
+    const x1 = e.left + e.width / 2 - o.left, y1 = e.bottom - o.top;
+    const x2 = d.left + d.width / 2 - o.left, y2 = d.top - o.top;
+    const midY = y1 + (y2 - y1) * 0.55;
+    const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p.setAttribute('d', `M ${x1} ${y1} V ${midY} H ${x2} V ${y2}`);
+    p.setAttribute('fill', 'none');
+    p.setAttribute('stroke', getComputedStyle(document.documentElement).getPropertyValue('--grid').trim() || '#e1e0d9');
+    p.setAttribute('stroke-width', '1.5');
+    svg.appendChild(p);
+  }
   document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
     document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
     t.classList.add('active');
     document.getElementById(t.dataset.p).classList.add('active');
+    drawOrgLines();
   }));
+  window.addEventListener('load', drawOrgLines);
+  window.addEventListener('resize', drawOrgLines);
 """
 
 
@@ -395,27 +421,35 @@ def org_tab_html(seats, candidates):
     context = [s for s in seats if s.get("context")]
     usia = [s for s in seats if not s.get("context") and s["id"] != "ed"]
 
-    teams_seen = list(dict.fromkeys(s.get("team", "") for s in usia))
+    deputies = [s for s in usia if s.get("tier") == "deputy"]
+    rest = [s for s in usia if s.get("tier") != "deputy"]
+    teams_seen = list(dict.fromkeys(s.get("team", "") for s in rest))
     order = [t for t in BRANCH_ORDER if t in teams_seen] \
         + [t for t in teams_seen if t not in BRANCH_ORDER]
     branches = []
-    for team in order:
-        group = [s for s in usia if s.get("team") == team]
+    for i, team in enumerate(order):
+        group = [s for s in rest if s.get("team") == team]
         if not group:
             continue
         label = BRANCH_LABELS.get(team, team.replace("-", " ").title())
-        # tier: deputy seats sit above the column, outside its label
-        above = "".join(seat_card_html(s, candidates, is_head=True)
-                        for s in group if s.get("tier") == "deputy")
         cards = "".join(seat_card_html(s, candidates, is_head=bool(s.get("lead")))
-                        for s in group if s.get("tier") != "deputy")
+                        for s in group)
         branches.append(
-            f'<div class="branch">{above}'
+            f'<div class="branch" style="grid-column:{i + 1}">'
             f'<div class="branch-label">{esc(label)}</div>{cards}</div>'
+        )
+    # tier: deputy seats sit in their own row above the column labels, so every
+    # label stays aligned; a connector line to the ED is drawn by script
+    deputy_cells = ""
+    for s in deputies:
+        col = order.index(s["team"]) + 1 if s.get("team") in order else 1
+        deputy_cells += (
+            f'<div class="deputy-cell" id="deputy-cell" style="grid-column:{col}">'
+            + seat_card_html(s, candidates, is_head=True) + "</div>"
         )
 
     ed_card = seat_card_html(ed, candidates) if ed else ""
-    top_row = f'<div></div><div class="ed-slot">{ed_card}</div>'
+    top_row = f'<div></div><div class="ed-slot" id="ed-slot">{ed_card}</div>'
     if context:
         cards = "".join(f'<div class="ctx-card">{seat_card_html(s, candidates)}</div>'
                         for s in context)
@@ -429,10 +463,12 @@ def org_tab_html(seats, candidates):
 
     return (
         '<div class="org-scroll"><div class="org">'
+        '<svg class="org-lines" id="org-lines"></svg>'
         f'<div class="org-row">{seat_card_html("Secretary of Commerce", None, external=True)}</div>'
         '<div class="org-connector"></div>'
         f'<div class="org-row top-row">{top_row}</div>'
-        f'<div class="branches">{"".join(branches)}</div>'
+        f'<div class="branches" style="grid-template-columns:repeat({len(order)},auto)">'
+        f'{deputy_cells}{"".join(branches)}</div>'
         '</div></div>'
     )
 
@@ -498,7 +534,8 @@ def source_card_html(s, cand_names):
     note = note_html(s)
     if not note and s.get("why") and s["status"] == "to-call":
         note = f'<div class="note"><b>WHY</b> — {esc(s["why"])}</div>'
-    return (f'<div class="card"><div class="name">{esc(s["name"])}</div>'
+    contact = (f'<div class="sub">{esc(s["contact"])}</div>' if s.get("contact") else "")
+    return (f'<div class="card"><div class="name">{esc(s["name"])}</div>{contact}'
             f'<div class="meta">{"".join(chips)}</div>{note}</div>')
 
 

@@ -1,8 +1,8 @@
 # Source Records — the sourcing/outreach layer
 # ---------------------------------------------
-# One record per place the ED fishes for talent: a company, a government office,
-# an individual person, or a group/association. Sources produce candidates
-# (candidates.yaml), who fill seats (seats.yaml).
+# One record per ORGANIZATION the ED works for talent. The person he actually
+# spoke to goes in `contact` and shows under the company name on the card;
+# what they said goes in the dated `log`.
 #
 # Edit this file, then regenerate the views:
 #     python3 tools/generate_org_views.py
@@ -15,6 +15,7 @@
 #   ball_in_court: them | us   (optional; only while called-waiting)
 #
 # Fields
+#   contact:    who he spoke to (or should speak to) at the organization
 #   for:        what we're fishing for, free text
 #   why:        rationale for calling (esp. on the need-to-call list)
 #   produced:   list of candidate ids this source yielded
@@ -27,9 +28,10 @@ sources:
 
   # ---- Called — waiting ----------------------------------------------------
 
-  - id: jeff-blau-related
-    name: "Jeff Blau (Related)"
-    type: person
+  - id: related
+    name: "Related"
+    contact: "Jeff Blau"
+    type: private
     status: called-waiting
     for: "investment secondee"
     ball_in_court: them
@@ -38,9 +40,10 @@ sources:
       - date: 2026-07-27
         note: "Asked for an investment secondee."
 
-  - id: bcg-america
-    name: "BCG America President"
-    type: person
+  - id: bcg
+    name: "BCG"
+    contact: "Meldon Wolfgang — Americas President"
+    type: private
     status: called-waiting
     for: "research secondee"
     ball_in_court: them
@@ -49,9 +52,10 @@ sources:
       - date: 2026-07-27
         note: "Asked for a research secondee."
 
-  - id: michael-grimes
-    name: "Michael Grimes (Morgan Stanley)"
-    type: person
+  - id: morgan-stanley
+    name: "Morgan Stanley"
+    contact: "Michael Grimes"
+    type: private
     status: called-waiting
     for: "secondee"
     ball_in_court: them
@@ -60,9 +64,10 @@ sources:
       - date: 2026-07-27
         note: "Asked for a secondee."
 
-  - id: bill-frauenhoffer
-    name: "Bill Frauenhoffer (CHIPS)"
-    type: person
+  - id: chips-office
+    name: "CHIPS Program Office"
+    contact: "Bill Frauenhoffer"
+    type: government
     status: called-waiting
     for: "people — roles unspecified"
     ball_in_court: them
@@ -72,4 +77,4 @@ sources:
         note: "Asked for people; which roles not specified."
 
   # ---- Need to call --------------------------------------------------------
-  # (to be filled in — see the idea list; add records here as the ED picks)
+  # (to be filled in — add records here as the ED picks targets)
