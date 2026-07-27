@@ -593,8 +593,7 @@ def open_seats_tab_html(seats, candidates):
     return "".join(out)
 
 
-def dashboard_html(seats, candidates, sources):
-    today = date.today()
+def tiles_html(seats, candidates, sources):
     usia_seats = [s for s in seats if not s.get("context")]
     total = sum(s.get("headcount", 1) for s in usia_seats)
     filled = sum(filled_positions(s) for s in usia_seats)
@@ -609,12 +608,7 @@ def dashboard_html(seats, candidates, sources):
     tc_other = len(to_call) - tc_gov - tc_priv
     tc_bits = [b for b, n in (("%d gov" % tc_gov, tc_gov), ("%d private" % tc_priv, tc_priv),
                               ("%d other" % tc_other, tc_other)) if n]
-
-    banner = ('<div class="sample-banner">Contains example records — replace with real data</div>'
-              if has_example_records(candidates, sources) else "")
-    updated = today.strftime("%B %-d, %Y")
-
-    tiles = (
+    return (
         f'<div class="tile"><div class="v">{filled}<small> / {total}</small></div>'
         f'<div class="l">Positions filled</div></div>'
         f'<div class="tile"><div class="v">{len(active)}</div><div class="l">Candidates in play</div>'
@@ -624,6 +618,14 @@ def dashboard_html(seats, candidates, sources):
         f'<div class="tile"><div class="v">{len(to_call)}</div><div class="l">Still to call</div>'
         f'<div class="d">{" · ".join(tc_bits) if tc_bits else "&nbsp;"}</div></div>'
     )
+
+
+def dashboard_html(seats, candidates, sources):
+    today = date.today()
+    banner = ('<div class="sample-banner">Contains example records — replace with real data</div>'
+              if has_example_records(candidates, sources) else "")
+    updated = today.strftime("%B %-d, %Y")
+    tiles = tiles_html(seats, candidates, sources)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -651,6 +653,51 @@ def dashboard_html(seats, candidates, sources):
 <section class="panel" id="src">{sourcing_tab_html(sources, candidates)}</section>
 <section class="panel" id="open">{open_seats_tab_html(seats, candidates)}</section>
 <footer>Generated {today.isoformat()} from org-data records · not hand-edited</footer>
+<script>{SCRIPT}</script>
+</body>
+</html>
+"""
+
+
+PRINT_EXTRA_CSS = """
+  @page { size: letter landscape; margin: 0.35in; }
+  html, body { overflow: visible; }
+  body { background: #fff; padding: 0; }
+  .sheet { zoom: 0.72; break-after: page; }
+  .sheet.org-sheet { zoom: 0.58; }
+  .sheet:last-child { break-after: auto; }
+  .sheet > h2 { font-size: 17px; letter-spacing: -0.01em; margin: 0 0 12px; }
+  .sheet { break-inside: avoid-page; }
+  .card, .col { break-inside: avoid; }
+  .board, .org-scroll, .m-scroll { overflow: visible; }
+  .card, .seat, .seatrow, .tile { box-shadow: none; }
+  header .sub { margin-bottom: 12px; }
+  .tiles { margin-bottom: 14px; }
+"""
+
+
+def print_dashboard_html(seats, candidates, sources):
+    today = date.today()
+    updated = today.strftime("%B %-d, %Y")
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Investment Accelerator — Buildout (print)</title>
+<style>{CSS}{PRINT_EXTRA_CSS}</style>
+</head>
+<body>
+<section class="sheet org-sheet">
+<header>
+  <h1>Investment Accelerator — Buildout</h1>
+  <div class="sub">Current status · updated {updated}</div>
+</header>
+<div class="tiles">{tiles_html(seats, candidates, sources)}</div>
+{org_tab_html(seats, candidates)}
+</section>
+<section class="sheet"><h2>Candidate Pipeline</h2>{pipeline_tab_html(candidates, seats, sources)}</section>
+<section class="sheet"><h2>Sourcing</h2>{sourcing_tab_html(sources, candidates)}</section>
+<section class="sheet"><h2>Open Seats</h2>{open_seats_tab_html(seats, candidates)}</section>
 <script>{SCRIPT}</script>
 </body>
 </html>
@@ -776,9 +823,11 @@ def main():
     validate(seats, candidates, sources)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "dashboard.html").write_text(dashboard_html(seats, candidates, sources))
+    (OUT / "print-dashboard.html").write_text(print_dashboard_html(seats, candidates, sources))
     (OUT / "org-chart.md").write_text(org_chart_md(seats, candidates))
     (OUT / "hiring-dashboard.md").write_text(dashboard_md(seats, candidates, sources))
     print(f"Wrote {OUT / 'dashboard.html'}  <- send this file to the ED")
+    print(f"Wrote {OUT / 'print-dashboard.html'}  <- tools/build.sh turns this into dashboard.pdf")
     print(f"Wrote {OUT / 'org-chart.md'}")
     print(f"Wrote {OUT / 'hiring-dashboard.md'}")
     if warnings:

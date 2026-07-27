@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Investment Accelerator — Buildout (print)</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --hairline: rgba(11,11,11,0.10); --grid: #e1e0d9;
+    --good: #0ca30c; --good-text: #006300; --warn: #fab219;
+    --stage-1: #86b6ef; --stage-2: #5598e7; --stage-3: #2a78d6;
+    --stage-4: #1c5cab; --stage-5: #104281;
+    --open-fill: #f0efec;
+    --card-shadow: 0 1px 2px rgba(11,11,11,0.06), 0 2px 8px rgba(11,11,11,0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+      --hairline: rgba(255,255,255,0.10); --grid: #2c2c2a;
+      --good-text: #0ca30c;
+      --stage-1: #3987e5; --stage-2: #5598e7; --stage-3: #86b6ef;
+      --stage-4: #9ec5f4; --stage-5: #b7d3f6;
+      --open-fill: #232322; --card-shadow: none;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { overflow-x: hidden; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--page); color: var(--ink);
+    font-size: 14px; line-height: 1.45;
+    padding: 20px clamp(12px, 3vw, 32px) 60px;
+  }
+  .sample-banner {
+    background: var(--warn); color: #0b0b0b; font-weight: 600; font-size: 12px;
+    letter-spacing: .04em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 8px; display: inline-block; margin-bottom: 14px;
+  }
+  header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  header .sub { color: var(--ink-2); margin-top: 2px; margin-bottom: 18px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .tile { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px;
+          padding: 12px 14px; box-shadow: var(--card-shadow); }
+  .tile .v { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+  .tile .v small { font-size: 15px; font-weight: 500; color: var(--muted); }
+  .tile .l { color: var(--ink-2); font-size: 12px; margin-top: 1px; }
+  .tile .d { font-size: 12px; margin-top: 3px; color: var(--muted); }
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--grid); margin-bottom: 18px; overflow-x: auto; }
+  .tab { appearance: none; background: none; border: none; cursor: pointer;
+         font: inherit; font-weight: 600; color: var(--muted);
+         padding: 8px 14px 10px; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .chip { display: inline-flex; align-items: center; gap: 5px;
+          font-size: 11px; font-weight: 600; color: var(--ink-2);
+          background: var(--open-fill); border-radius: 20px; padding: 2px 9px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .chip.filled { color: var(--good-text); }
+  .org-scroll { overflow-x: auto; padding-bottom: 8px; }
+  .org { min-width: 860px; }
+  .org-row { display: flex; justify-content: center; gap: 14px; }
+  .org-connector { text-align: center; height: 18px; }
+  .org-connector::before { content: ""; display: inline-block; width: 1px; height: 18px; background: var(--grid); }
+  .seat { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px;
+          box-shadow: var(--card-shadow); padding: 10px 12px; min-width: 150px; max-width: 200px; }
+  .seat.open { background: var(--open-fill); border: 1px dashed var(--muted); box-shadow: none; }
+  .seat.external { background: none; border: 1px dashed var(--grid); box-shadow: none; text-align: center; }
+  .seat .role { font-weight: 650; font-size: 13px; letter-spacing: -0.01em; }
+  .seat .who { color: var(--ink-2); font-size: 12px; margin-top: 2px; }
+  .seat .who .fade { color: var(--muted); }
+  .seat .meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+  .top-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: start; }
+  .ed-slot { justify-self: center; }
+  .ed-slot .seat { min-width: 220px; max-width: 240px; padding: 14px 16px; }
+  .ed-slot .seat .role { font-size: 16px; }
+  .ed-slot .seat .who { font-size: 13px; }
+  .ctx-group { justify-self: end; max-width: 330px; }
+  .ctx-cards { justify-content: flex-end; }
+  .ctx-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+               color: var(--muted); margin-bottom: 5px; }
+  .ctx-cards { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ctx-card .seat { background: none; border: 1px solid var(--grid); box-shadow: none;
+                    padding: 6px 9px; min-width: 110px; max-width: 150px; }
+  .ctx-card .role { font-size: 11px; }
+  .ctx-card .who { font-size: 11px; margin-top: 1px; }
+  .ctx-card .meta { display: none; }
+  .org { position: relative; }
+  .org-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .branches { display: grid; justify-content: center; column-gap: 24px; align-items: start; margin-top: 4px; }
+  .deputy-cell { grid-row: 1; padding-bottom: 14px; }
+  .branch { grid-row: 2; display: flex; flex-direction: column; gap: 10px; align-items: stretch; min-width: 180px; }
+  .branch > .seat.head { border-top: 3px solid var(--stage-3); }
+  .branch-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+                  color: var(--muted); text-align: center; }
+  .board { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; align-items: flex-start; }
+  .col { min-width: 230px; flex: 1; }
+  .col-head { display: flex; align-items: center; gap: 7px; padding: 4px 4px 10px; font-weight: 650; font-size: 13px; }
+  .col-head .n { color: var(--muted); font-weight: 600; }
+  .card { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px;
+          box-shadow: var(--card-shadow); padding: 11px 12px; margin-bottom: 10px; }
+  .card .name { font-weight: 650; font-size: 13.5px; }
+  .card .sub { color: var(--ink-2); font-size: 12px; margin-top: 1px; }
+  .card .meta { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+  .card .note { margin-top: 8px; font-size: 12px; color: var(--ink-2);
+                border-top: 1px solid var(--grid); padding-top: 7px; }
+  .card .note b { color: var(--muted); font-weight: 600; font-size: 11px; }
+  .more { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .section-h { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+               color: var(--muted); margin: 22px 0 8px; }
+  .seatlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 10px; }
+  .wave-h { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+            color: var(--muted); margin: 18px 0 8px; }
+  .wave-h:first-child { margin-top: 0; }
+  .seatrow { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px;
+             box-shadow: var(--card-shadow); padding: 11px 13px;
+             display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+  .seatrow .r { font-weight: 650; font-size: 13px; }
+  .seatrow .s { color: var(--ink-2); font-size: 12px; margin-top: 1px; }
+  .empty { color: var(--muted); padding: 20px 4px; }
+  footer { margin-top: 26px; color: var(--muted); font-size: 12px; }
+
+  @page { size: letter landscape; margin: 0.35in; }
+  html, body { overflow: visible; }
+  body { background: #fff; padding: 0; }
+  .sheet { zoom: 0.72; break-after: page; }
+  .sheet.org-sheet { zoom: 0.58; }
+  .sheet:last-child { break-after: auto; }
+  .sheet > h2 { font-size: 17px; letter-spacing: -0.01em; margin: 0 0 12px; }
+  .sheet { break-inside: avoid-page; }
+  .card, .col { break-inside: avoid; }
+  .board, .org-scroll, .m-scroll { overflow: visible; }
+  .card, .seat, .seatrow, .tile { box-shadow: none; }
+  header .sub { margin-bottom: 12px; }
+  .tiles { margin-bottom: 14px; }
+</style>
+</head>
+<body>
+<section class="sheet org-sheet">
+<header>
+  <h1>Investment Accelerator — Buildout</h1>
+  <div class="sub">Current status · updated July 27, 2026</div>
+</header>
+<div class="tiles"><div class="tile"><div class="v">9<small> / 21</small></div><div class="l">Positions filled</div></div><div class="tile"><div class="v">9</div><div class="l">Candidates in play</div><div class="d">5 waiting · 1 in screening</div></div><div class="tile"><div class="v">4</div><div class="l">Sources worked</div><div class="d">0 produced names</div></div><div class="tile"><div class="v">0</div><div class="l">Still to call</div><div class="d">&nbsp;</div></div></div>
+<div class="org-scroll"><div class="org"><svg class="org-lines" id="org-lines"></svg><div class="org-row"><div class="seat external"><div class="role">Secretary of Commerce</div></div></div><div class="org-connector"></div><div class="org-row top-row"><div></div><div class="ed-slot" id="ed-slot"><div class="seat"><div class="role">AMS</div><div class="who">Executive Director</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div></div><div class="ctx-group"><div class="ctx-label">Commerce leadership — same level, all report to the Secretary</div><div class="ctx-cards"><div class="ctx-card"><div class="seat"><div class="role">Yvette DePinto</div><div class="who">Chief of Staff, Commerce</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div></div><div class="ctx-card"><div class="seat"><div class="role">Cooper Goodfrey</div><div class="who">General Counsel, Commerce</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div></div><div class="ctx-card"><div class="seat"><div class="role">David Shapiro</div><div class="who">Chief Counsel of Commerce</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div></div><div class="ctx-card"><div class="seat"><div class="role">Prashanth Rajah</div><div class="who">CFO, Commerce</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div></div></div></div></div><div class="branches" style="grid-template-columns:repeat(5,auto)"><div class="deputy-cell" id="deputy-cell" style="grid-column:1"><div class="seat head"><div class="role">Josh Kroon</div><div class="who">Deputy Director (acting) <span class="fade">· detailee</span></div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div></div><div class="branch" style="grid-column:1"><div class="branch-label">Investment</div><div class="seat open head"><div class="role">Head of Investments</div><div class="who">Open</div><div class="meta"><span class="chip "><span class="dot" style="background:var(--stage-5)"></span>In screening · 1 in play</span></div></div><div class="seat"><div class="role">Jacob Ramer</div><div class="who">Investment</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div><div class="seat"><div class="role">Abhiram Karuppur</div><div class="who">Investment</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div><div class="seat open"><div class="role">Investment Team</div><div class="who">3 open seats</div><div class="meta"><span class="chip "><span class="dot" style="background:var(--stage-3)"></span>In talks · 6 in play</span></div></div></div><div class="branch" style="grid-column:2"><div class="branch-label">Legal</div><div class="seat open head"><div class="role">General Counsel (USIA)</div><div class="who">Open</div><div class="meta"><span class="chip "><span class="dot" style="background:var(--stage-3)"></span>In talks · 2 in play</span></div></div><div class="seat"><div class="role">Tyler Stephens</div><div class="who">Legal</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div><div class="seat"><div class="role">Iac Lash</div><div class="who">Legal</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div><div class="seat open"><div class="role">Senior Associate — Legal</div><div class="who">2 open seats</div><div class="meta"><span class="chip ">Not started</span></div></div><div class="seat open"><div class="role">Paralegal</div><div class="who">Open</div><div class="meta"><span class="chip ">Not started</span></div></div></div><div class="branch" style="grid-column:3"><div class="branch-label">Research</div><div class="seat"><div class="role">Matt Petitt</div><div class="who">Research</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div><div class="seat open"><div class="role">Research</div><div class="who">2 open seats</div><div class="meta"><span class="chip "><span class="dot" style="background:var(--stage-1)"></span>Sourcing · 2 in play</span></div></div></div><div class="branch" style="grid-column:4"><div class="branch-label">Admin / Front Office</div><div class="seat open head"><div class="role">Chief of Staff (USIA)</div><div class="who">Open</div><div class="meta"><span class="chip "><span class="dot" style="background:var(--stage-1)"></span>Sourcing</span></div></div><div class="seat open"><div class="role">Executive Assistant</div><div class="who">Open</div><div class="meta"><span class="chip ">Not started</span></div></div></div><div class="branch" style="grid-column:5"><div class="branch-label">Senior Advisors</div><div class="seat"><div class="role">Aron Schwartz</div><div class="who">Senior Advisor (SGE)</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div><div class="seat"><div class="role">Jon Sobel</div><div class="who">Senior Advisor (SGE)</div><div class="meta"><span class="chip filled"><span class="dot" style="background:var(--good)"></span>On board</span></div></div></div></div></div></div>
+</section>
+<section class="sheet"><h2>Candidate Pipeline</h2><div class="board"><div class="col"><div class="col-head"><span class="dot" style="background:var(--stage-1)"></span>To meet <span class="n">1</span></div><div class="card"><div class="name">Jack Komaroff</div><div class="sub">Stanford</div><div class="meta"><span class="chip ">→ Investment Team</span></div></div></div><div class="col"><div class="col-head"><span class="dot" style="background:var(--stage-3)"></span>Waiting to hear <span class="n">5</span></div><div class="card"><div class="name">Eric Kadell</div><div class="meta"><span class="chip ">→ General Counsel (USIA)</span></div><div class="note"><b>JUL 27</b> — Great candidate. Once he says yes: divestiture and disclosure — senior-level hire.</div></div><div class="card"><div class="name">Rachel Sheridan</div><div class="meta"><span class="chip ">→ General Counsel (USIA)</span></div><div class="note"><b>JUL 27</b> — Great candidate. Same senior-level divestiture/disclosure path as Kadell.</div></div><div class="card"><div class="name">Andrew Karmin</div><div class="sub">Formerly Jefferies IB</div><div class="meta"><span class="chip ">→ Investment Team</span></div><div class="note"><b>JUL 27</b> — Coming down Thursday (Jul 30).</div></div><div class="card"><div class="name">Jeff Holiday</div><div class="sub">Formerly Goldman Sachs</div><div class="meta"><span class="chip ">→ Investment Team</span></div><div class="note"><b>JUL 27</b> — Coming down Thursday (Jul 30).</div></div><div class="card"><div class="name">Antonia Chapman</div><div class="meta"><span class="chip ">→ Investment Team</span></div><div class="note"><b>JUL 27</b> — Deciding between USIA and a job at Dow.</div></div></div><div class="col"><div class="col-head"><span class="dot" style="background:var(--stage-4)"></span>In screening <span class="n">1</span></div><div class="card"><div class="name">Jonathan Goldberg</div><div class="meta"><span class="chip ">→ Head of Investments</span></div><div class="note"><b>JUL 27</b> — In the screening/divestiture process. Would sit above the investment team — deputy-director / head-of-investments level, final title TBD. Targeting an early-September start.</div></div></div><div class="col"><div class="col-head"><span class="dot" style="background:var(--good)"></span>Cleared to start <span class="n">2</span></div><div class="card"><div class="name">Will Suh</div><div class="meta"><span class="chip ">→ Investment Team</span><span class="chip ">→ Research</span><span class="chip ">via Josh Kroon</span></div><div class="note"><b>JUL 27</b> — Cleared to start — detailing from ITA to USIA. Investment/research.</div></div><div class="card"><div class="name">Kobe (Kwabena) Gyimah-Asante</div><div class="sub">BlackRock Infrastructure</div><div class="meta"><span class="chip ">→ Investment Team</span><span class="chip ">→ Research</span><span class="chip ">via Josh Kroon</span></div><div class="note"><b>JUL 27</b> — Cleared to start — detailing from ITA to USIA. Investment/research.</div></div></div><div class="col"><div class="col-head">Stalled <span class="n">3</span></div><div class="card"><div class="name">Anthony Chammah</div><div class="meta"></div></div><div class="card"><div class="name">Matt Gunte</div><div class="meta"></div></div><div class="card"><div class="name">Christian Farricker</div><div class="meta"></div></div></div></div></section>
+<section class="sheet"><h2>Sourcing</h2><div class="board"><div class="col"><div class="col-head">Need to call <span class="n">0</span></div><div class=empty>—</div></div><div class="col"><div class="col-head">Called — waiting <span class="n">4</span></div><div class="card"><div class="name">Related</div><div class="sub">Jeff Blau</div><div class="meta"><span class="chip ">Private</span><span class="chip ">for: investment secondee</span><span class="chip ">their move</span><span class="chip ">last: 2026-07-27</span></div><div class="note"><b>JUL 27</b> — Asked for an investment secondee.</div></div><div class="card"><div class="name">BCG</div><div class="sub">Meldon Wolfgang — Americas President</div><div class="meta"><span class="chip ">Private</span><span class="chip ">for: research secondee</span><span class="chip ">their move</span><span class="chip ">last: 2026-07-27</span></div><div class="note"><b>JUL 27</b> — Asked for a research secondee.</div></div><div class="card"><div class="name">Morgan Stanley</div><div class="sub">Michael Grimes</div><div class="meta"><span class="chip ">Private</span><span class="chip ">for: secondee</span><span class="chip ">their move</span><span class="chip ">last: 2026-07-27</span></div><div class="note"><b>JUL 27</b> — Asked for a secondee.</div></div><div class="card"><div class="name">CHIPS Program Office</div><div class="sub">Bill Frauenhoffer</div><div class="meta"><span class="chip ">Gov</span><span class="chip ">for: people — roles unspecified</span><span class="chip ">their move</span><span class="chip ">last: 2026-07-27</span></div><div class="note"><b>JUL 27</b> — Asked for people; which roles not specified.</div></div></div><div class="col"><div class="col-head"><span class="dot" style="background:var(--good)"></span>Produced <span class="n">0</span></div><div class=empty>—</div></div></div></section>
+<section class="sheet"><h2>Open Seats</h2><div class="wave-h">Wave 1 — critical path</div><div class="seatlist"><div class="seatrow"><div><div class="r">Head of Investments</div><div class="s">1 in play</div></div><span class="chip "><span class="dot" style="background:var(--stage-5)"></span>In screening · 1 in play</span></div><div class="seatrow"><div><div class="r">Investment Team ×3</div><div class="s">6 in play</div></div><span class="chip "><span class="dot" style="background:var(--stage-3)"></span>In talks · 6 in play</span></div><div class="seatrow"><div><div class="r">General Counsel (USIA)</div><div class="s">2 in play</div></div><span class="chip "><span class="dot" style="background:var(--stage-3)"></span>In talks · 2 in play</span></div><div class="seatrow"><div><div class="r">Research ×2</div><div class="s">2 in play</div></div><span class="chip "><span class="dot" style="background:var(--stage-1)"></span>Sourcing · 2 in play</span></div><div class="seatrow"><div><div class="r">Chief of Staff (USIA)</div><div class="s">no slate yet</div></div><span class="chip "><span class="dot" style="background:var(--stage-1)"></span>Sourcing</span></div><div class="seatrow"><div><div class="r">Executive Assistant</div><div class="s">no slate yet</div></div><span class="chip ">Not started</span></div></div><div class="wave-h">Wave 2</div><div class="seatlist"><div class="seatrow"><div><div class="r">Senior Associate — Legal ×2</div><div class="s">no slate yet</div></div><span class="chip ">Not started</span></div><div class="seatrow"><div><div class="r">Paralegal</div><div class="s">no slate yet</div></div><span class="chip ">Not started</span></div></div></section>
+<script>
+  function drawOrgLines() {
+    const svg = document.getElementById('org-lines');
+    if (!svg) return;
+    svg.innerHTML = '';
+    const org = svg.parentElement;
+    const ed = document.getElementById('ed-slot');
+    const dep = document.getElementById('deputy-cell');
+    if (!ed || !dep || !dep.offsetParent) return;
+    const o = org.getBoundingClientRect(), e = ed.getBoundingClientRect(),
+          d = dep.getBoundingClientRect();
+    const x1 = e.left + e.width / 2 - o.left, y1 = e.bottom - o.top;
+    const x2 = d.left + d.width / 2 - o.left, y2 = d.top - o.top;
+    const midY = y1 + (y2 - y1) * 0.55;
+    const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p.setAttribute('d', `M ${x1} ${y1} V ${midY} H ${x2} V ${y2}`);
+    p.setAttribute('fill', 'none');
+    p.setAttribute('stroke', getComputedStyle(document.documentElement).getPropertyValue('--grid').trim() || '#e1e0d9');
+    p.setAttribute('stroke-width', '1.5');
+    svg.appendChild(p);
+  }
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.p).classList.add('active');
+    drawOrgLines();
+  }));
+  window.addEventListener('load', drawOrgLines);
+  window.addEventListener('resize', drawOrgLines);
+</script>
+</body>
+</html>

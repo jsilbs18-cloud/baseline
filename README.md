@@ -37,6 +37,7 @@ Plus two supporting pieces:
     sources.yaml                  The sourcing map — who the ED calls for talent
   generated/                      Never hand-edited; rebuilt by tools/
     dashboard.html                ED-facing status page (send this file to him)
+    dashboard.pdf                 Printable version — one page per tab
     org-chart.md                  Org chart (Mermaid), color-coded by status
     hiring-dashboard.md           Text dashboard: seats, pipeline, sourcing
 03-deal-process/
@@ -58,7 +59,9 @@ Plus two supporting pieces:
 07-systems/
   codex-workspace-plan.md         What to build in the CUI environment and how
 tools/
+  build.sh                        One command: regenerate every view and PDF
   generate_org_views.py           Rebuilds 02-organization/generated/ from org-data/
+  generate_counterpart_map.py     Rebuilds 06-toolkit/generated/ from entities.yaml
 ```
 
 ## Information handling
