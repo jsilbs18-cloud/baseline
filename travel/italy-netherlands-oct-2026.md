@@ -1,5 +1,5 @@
 # Italy → Amsterdam → Paris, 22 Oct – 1 Nov 2026
-**8 travellers · US students aged 20–21 · departing from Paris**
+**8 travellers to Italy · 5–6 continue to Amsterdam · US students aged 20–21 · departing from Paris**
 Research compiled **7 September 2026**. Trip starts in **45 days**.
 
 ---
@@ -10,11 +10,11 @@ Research compiled **7 September 2026**. Trip starts in **45 days**.
 |---|---|---|---|
 | 1 | **Anne Frank House** | 🔴 **NOT YET ON SALE** | Tickets for the week containing 30 Oct–1 Nov release **Tue 15 Sept 2026, 10:00 Amsterdam** — 8 days away. Slots go in minutes. Set an alarm. |
 | 2 | **Colosseum / Forum / Palatine** | 🔴 **NOT YET ON SALE** | 30-day rolling release at 09:00 Rome. 28 Oct → on sale **28 Sept**; 29 Oct → **29 Sept**. |
-| 3 | **FCO→AMS morning flight** | 🟠 **CANNOT SEAT 8** | Only **2** direct departures before 09:00 exist. The cheap one (KL1600) showed **7 seats left**. See §2. |
+| 3 | **FCO→AMS morning flight** | 🟢 **RESOLVED** | Only 2 direct departures exist before 09:00, and the cheap one (KL1600) showed **7 seats** — a blocker at 8, but **fine at 5–6**. Book it. See §2b. |
 | 4 | **International Driving Permit** | 🔴 **HARD BLOCKER** | An IDP for a US licence **cannot be issued outside the USA**. Mail-order takes ~5 business days + 3–10 days shipping. See §9. |
-| 5 | **Driver age** | 🔴 **LIKELY BLOCKER** | Italian minimum rental age is **21**, and typically 1+ year licence held. Anyone who is 20 cannot drive. 9-seater vans are worse. See §4. |
+| 5 | **Driver age** | 🟡 **NARROW BUT WORKABLE** | You have **1–2 qualifying drivers**. That rules out the 2-car plan unless *both* qualify — the **single 9-seater van is now the recommendation**. See §4. |
 | 6 | **Doge's Palace** | 🟡 Discount expiring | The >30-days-ahead €25 timed price lapses around **24 Sept** for a 24 Oct visit. |
-| 7 | **Eurostar 1 Nov** | 🟡 Unverified | 8 pax is **below Eurostar's 10-passenger group minimum**, so it must be booked as ordinary seats. See §1. |
+| 7 | **Eurostar 1 Nov** | 🟡 Unverified | Now **5–6 seats**, still below Eurostar's 10-passenger group minimum, so ordinary seats. Fewer seats = easier. See §1. |
 
 ---
 
@@ -29,7 +29,7 @@ Because of that split, and because you asked me not to estimate:
 
 - **I did not verify a single live price for: the Eurostar, either Italian train, any car rental, or any attraction ticket.** I could not open those booking engines. I have given you the rules, the official booking URLs, and what to check — but no invented fares.
 - **All Expedia prices came back in USD, not EUR.** I have left them in USD rather than converting, because I could not verify a live FX rate. Airline *baggage* fees did come through natively in EUR and are marked as such. You will need to apply your own conversion.
-- **The Expedia flight tool caps at 6 passengers.** I could not run a true 8-seat query on any flight. Seat counts below are what the API reported at 6 pax; treat "7 seats left" as a warning sign, not a guarantee.
+- **The Expedia flight tool caps at 6 passengers.** For the Amsterdam leg (5–6 people) that is no longer a limitation. For the **Paris→Milan flight, which all 8 of you take**, I could not run a true 8-seat query — seat counts there are what the API reported at 6 pax, so confirm 8 at booking.
 - **Lodging listings do not expose bedroom counts, bed types, kitchens, parking, or road surface.** I can confirm price, date availability and guest rating. I could **not** confirm your Val d'Orcia requirements (4+ real bedrooms, full kitchen, parking ×2, paved access). Those need a human to open each listing.
 
 ---
@@ -41,7 +41,7 @@ Because of that split, and because you asked me not to estimate:
 What I did establish:
 
 - **Booking is open.** Eurostar sells this route ~6 months ahead, so 1 Nov 2026 has been on sale since roughly May 2026. It is not a "wait for release" case — it is a "book now" case.
-- **You do not qualify as a group.** Eurostar group fares require **10+ paying passengers**. At 8 you book as ordinary individual seats, and there is no group discount to chase. Don't waste time phoning the group desk.
+- **You do not qualify as a group.** Eurostar group fares require **10+ paying passengers**. At 5–6 you book as ordinary individual seats, and there is no group discount to chase. Don't waste time phoning the group desk.
 - **1 Nov is Toussaint (All Saints), a French public holiday and the end of the school holiday** — this is the single heaviest return-to-Paris day of the autumn. Your instinct to check this first was correct.
 - Journey time 3h20, ~10 departures daily, three classes (Standard / Plus / Premier).
 
@@ -52,7 +52,7 @@ What I did establish:
 - NS International: https://www.nsinternational.com
 - Trainline: https://www.thetrainline.com
 
-> **Recommendation:** book all 8 seats today, on whatever fare is live. Splitting 8 seats across two departures on Toussaint is a real risk, and there is no group safety net.
+> **Recommendation:** book all 5–6 seats today, on whatever fare is live. Finding 6 seats together on Toussaint is far easier than 8 would have been, but the cheap buckets still clear first and there is no group safety net.
 
 ---
 
@@ -76,29 +76,24 @@ All are **nonstop into Linate**, as you wanted — 1h25–1h30, and Linate is ~1
 
 > **Pick:** easyJet U2 4563 (17:25) if hand-luggage-only; ITA AZ 313 (16:50) if checking bags. Both land in time for a normal Milan evening.
 
-### 2b. Rome FCO → Amsterdam, Fri 30 Oct, before 09:00, direct — 🟠 LIVE DATA, PROBLEM FOUND
+### 2b. Rome FCO → Amsterdam, Fri 30 Oct, before 09:00, direct — ✅ RESOLVED AT 5–6 PAX
 
-**Only two direct flights leave FCO before 09:00 on 30 Oct. Neither cleanly seats 8.**
+Only two direct flights leave FCO before 09:00 on 30 Oct. At 8 people that was a blocker; **at 5–6 it is not.**
 
 | Flight | Times | Fare/pp | Bags | Seats reported |
 |---|---|---|---|---|
-| **KLM KL 1600** | **06:10 → 08:40** | **$190.10** | BASIC: **no carry-on**; 1st checked **€80** | **7** ⚠️ |
+| **KLM KL 1600** ⭐ | **06:10 → 08:40** | **$190.10** | BASIC: **no carry-on**; 1st checked **€80** | **7** — fits 5–6 |
 | ITA AZ 108 | 08:30 → 11:05 | $189.75 | 8kg carry-on incl.; checked $100 | 0 ⚠️ |
 
-- **KL1600 reported 7 seats remaining at that fare — you need 8.** The eighth traveller may have to buy a higher bucket, or the party splits.
-- **AZ 108 reported 0 seats**, yet still returned a bookable price for 6. Expedia's seat counter is per-fare-bucket and unreliable; I flag both numbers as *warnings I could not resolve*, since the tool caps at 6 passengers and I could never test 8.
-- Note AZ 108 departs 08:30 (inside your window) but **arrives 11:05**, so it costs you the morning anyway.
+**KL1600 at 06:10 is your flight.** It reported 7 seats at that fare — comfortably above your 5–6, meets your before-09:00 rule, and lands at 08:40 giving you the full Friday in Amsterdam. Note it is KLM **BASIC**: no carry-on at all, only a personal item, and a checked bag is **€80**.
 
-**Later same-day direct alternatives (all showed 9+ seats):**
+AZ 108 reported 0 seats yet still returned a bookable price; Expedia's seat counter is per-fare-bucket and unreliable, so I flag it but wouldn't rely on it. It also arrives 11:05, costing you the morning anyway.
 
-| Flight | Times | Fare/pp |
-|---|---|---|
-| KLM KL 1608 | 20:30 → 23:00 | $206.10 |
-| KLM KL 1606 | 17:20 → 19:50 | $212.10 |
-| KLM KL 1604 | 12:45 → 15:20 | $257.10 |
-| KLM KL 1602 | 10:10 → 12:40 | $262.10 |
+**Fallbacks if KL1600 sells out (all reported 9+ seats):** KL1608 20:30 ($206.10), KL1606 17:20 ($212.10), KL1604 12:45 ($257.10), KL1602 10:10 ($262.10).
 
-> **This is a decision you need to make, not me.** Holding "before 09:00" means a 06:10 departure — a ~03:45 wake-up in Rome for eight people — *and* accepting that the fare may not hold 8 seats. Relaxing to KL1602 at 10:10 costs about $72/pp more but is bookable for the whole group with a civilised morning. I'd relax the constraint, but it's your call. **Whichever you choose, book it this week** — 7 seats will not survive 45 days.
+> **Book KL1600 this week.** Seven seats at the cheap bucket will not survive 45 days, and it is the only pre-09:00 option that actually works.
+
+*The 2–3 travellers not going to Amsterdam are sorting their own onward route from Rome — not researched here, per your instruction.*
 
 **Book direct:** https://www.klm.com · https://www.ita-airways.com · https://www.easyjet.com
 
@@ -168,7 +163,7 @@ Quote all of these for **FLR pickup 26 Oct → Rome drop 28 Oct**, and on each q
 - Maggiore (Italian, explicit 21+ policy): https://www.maggiore.it
 - Auto Europe (broker, surfaces age rules up front): https://www.autoeurope.com
 
-> **Strong recommendation:** price the **9-seater van driven by a single qualifying driver** against the 2-car option. One van means **one** young-driver surcharge instead of two-to-four, one one-way fee instead of two, and one parking space in Val d'Orcia instead of two. If exactly one person in the group is 21 with a licence held over a year, the van is not just cheaper — it may be your **only** legal configuration.
+> **Recommendation, now that you've confirmed 1–2 qualifying drivers: go with the single 9-seater van.** The 2-car plan needs *two* drivers who are both 21+ with a year's licence — you may only have one, and even with two it doubles every fee. The van needs one. One van means **one** young-driver surcharge instead of two-to-four, one one-way fee instead of two, and one parking space in Val d'Orcia instead of two. With 1–2 qualifying drivers it is not just cheaper — it may be your **only** legal configuration. **Confirm with the supplier in writing that their 9-seater is not classed as a 'specialty' category**, which would push the minimum age to 25 and sink the whole leg. Note a 9-seater also carries all 8 of you in one vehicle, which the 2-car plan barely did.
 
 ---
 
@@ -229,23 +224,31 @@ All available for your dates at 8 guests. **USD, total for the stay.**
 
 ---
 
-## 7. Amsterdam, 30 Oct – 1 Nov — ✅ LIVE AVAILABILITY
+## 7. Amsterdam, 30 Oct – 1 Nov (5–6 people) — ✅ LIVE AVAILABILITY
 
-You are right about the Dutch rule: legal short-term rentals are capped at **4 guests per listing**. I therefore priced **4-guest bookings and doubled them**. Prices are **USD, ×2 units, 2 nights**.
+**Important correction now that the group is smaller:** the Dutch 4-guest cap applies to **short-term holiday rental of residential homes** (*vakantieverhuur*) — it does **not** apply to hotels. At 5–6 people you can simply book hotel rooms and the cap never bites. That reopens options that were awkward at 8.
 
-**Availability is not a crisis.** Despite Halloween falling on the Saturday, I found plenty of inventory — the constraint here is price, not scarcity.
+**Availability is not a crisis.** Despite Halloween on the Saturday, there is plenty of inventory. Price, not scarcity, is the constraint.
 
-| Rank | Property | Per unit (×4) | Total ×2 | **Per person** | Rating |
-|---|---|---|---|---|---|
-| **1** | **[Chasse Residency Hotel](https://www.expedia.com/.h101084828.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a4)** | **$497** | **$994** | **$124.25** | **9.4 (182)** |
-| 2 | [Leonardo Royal Hotel Amsterdam](https://www.expedia.com/.h27473821.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a4) | $821 | $1,642 | $205.25 | 8.8 (1003) |
-| 3 | [Hotel Old Quarter](https://www.expedia.com/.h1768275.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a4) | $822 | $1,644 | $205.50 | 8.2 (1009) |
-| — | [ibis Amsterdam Centre](https://www.expedia.com/.h25525.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a4) | $859 | $1,718 | $214.75 | 8.4 (2201) |
-| — | [The Hoxton, Lloyd](https://www.expedia.com/.h90889841.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a4) | $904 | $1,808 | $226.00 | 9.2 (746) |
+### Option A — split booking, cheapest verified (best value)
+| Component | For | Total | Rating |
+|---|---|---|---|
+| [Chasse Residency Hotel](https://www.expedia.com/.h101084828.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a4) | 4 guests | $497 | 9.4 (182) |
+| [citizenM Amstel Amsterdam](https://www.expedia.com/.h29745293.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a2) | 2 guests | $584 | 9.6 (937) |
+| **Combined for 6** | | **$1,081** | **= $180.17 pp** |
 
-> **Chasse Residency is the standout of this entire report** — 9.4 from 182 reviews at **40% below** the next option. It is in Oost (52.3519, 4.9250), ~15 min by tram from the centre. Book it now; that price will not hold over Halloween weekend.
+### Option B — single booking for 6
+| Rank | Property | Total (6) | **Per person** | Rating |
+|---|---|---|---|---|
+| **1** | **[ibis Amsterdam Centre](https://www.expedia.com/.h25525.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a6)** | **$1,328** | **$221.33** | 8.4 (2201) |
+| 2 | [Hotel Tourist Inn](https://www.expedia.com/.h3531017.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a6) | $1,335 | $222.50 | 8.2 (871) |
+| 3 | [Hotel Avenue](https://www.expedia.com/.h904278.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a6) | $1,345 | $224.17 | 8.0 (1004) |
+| — | [Amsterdam ID Aparthotel](https://www.expedia.com/.h5448620.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a6) | $1,482 | $247.00 | 9.2 (1006) |
+| — | [The July – Twenty Eight](https://www.expedia.com/.h17954381.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a6) | $1,511 | $251.83 | **9.6 (479)** |
 
----
+**If only 4 go:** [Chasse Residency](https://www.expedia.com/.h101084828.Hotel-Information?chkin=2026-10-30&chkout=2026-11-01&rm1=a4) alone at **$497 = $124.25 pp** — by some distance the best value found anywhere in this report.
+
+> **Pick: Option A.** $180.17/pp beats every single-property option for 6, and both halves rate 9.4+ — materially better than the 8.4 you'd get at ibis for $41/pp more. The trade-off is two check-ins at different addresses (Chasse is in Oost, citizenM on the Amstel, ~15 min apart). If you'd rather all be under one roof, **The July – Twenty Eight at 9.6** is the nicest single option, at $71.66/pp above Option A.
 
 ## 8. Timed-entry tickets — sold-out status
 
@@ -301,40 +304,56 @@ Two routes: apply online at AAA and ship to Paris, or mail a completed form with
 
 ## Per-person trip cost
 
-**Currency warning: these are USD, as returned by the booking system. I could not verify an FX rate, so I have not converted to EUR. Apply your own rate.**
+**Currency warning: these are USD, as returned by the booking system. Per your instruction I have not converted them — no invented FX rate appears anywhere below.**
 
-### Verified — real prices, real dates, bookable now
+The trip now splits after Rome, so the total does too.
+
+### Part 1 — Italy legs, all 8 people (verified)
 
 | Item | Per person |
 |---|---|
 | Flight CDG→LIN, easyJet 17:25 | $72.80 |
-| Flight FCO→AMS, KLM 06:10 *(only 7 seats)* | $190.10 |
 | Milan, 2 nights | $80.63 |
 | Venice, 1 night | $98.38 |
 | Florence, 1 night | $36.13 |
 | Val d'Orcia, 2 nights | $150.25 |
 | Rome, 2 nights | $111.00 |
-| Amsterdam, 2 nights | $124.25 |
-| **Verified subtotal** | **$863.54** |
+| **Italy subtotal** | **$549.19** |
 
-**Comfort variant** — ITA instead of easyJet (carry-on included), KL1602 at 10:10 instead of the 06:10 with its seat problem, Hotel San Gregorio in Val d'Orcia:
-**$1,026.17 per person.**
+### Part 2 — Amsterdam continuation, 5–6 people (verified)
+
+| Item | Per person |
+|---|---|
+| Flight FCO→AMS, KLM KL1600 06:10 | $190.10 |
+| Amsterdam, 2 nights (Option A split, at 6) | $180.17 |
+| **Amsterdam subtotal** | **$370.27** |
+
+### Totals
+
+| Traveller | Verified total |
+|---|---|
+| **Doing the whole trip (Italy + Amsterdam)** | **$919.46** |
+| **Italy only** (leaving the group in Rome) | **$549.19** |
+
+**Comfort variant** for the full trip — ITA instead of easyJet (carry-on included), Hotel San Gregorio in Val d'Orcia (155 reviews, guaranteed parking and paved access), and The July – Twenty Eight in Amsterdam (9.6, one roof):
+**$1,051.25 per person.**
 
 ### NOT included — I refused to estimate these
 
 | Item | Why |
 |---|---|
-| Eurostar AMS→Paris, 1 Nov | Site unreachable. **Likely your largest single unpriced item.** |
-| Milan→Venice train | Site unreachable |
-| Venice→Florence train | Site unreachable |
-| Car hire, 2 cars or 1 van | No live quotes; **may not be legally possible — see §4** |
+| Eurostar AMS→Paris, 1 Nov (5–6 seats) | Site unreachable. **Still your largest single unpriced item.** |
+| Milan→Venice train (8) | Site unreachable |
+| Venice→Florence train (8) | Site unreachable |
+| 9-seater van hire, FLR→Rome | No live quotes obtainable; **see §4 before committing** |
 | Fuel, tolls, ZTL, parking | Not quoted |
 | All 10 attraction tickets | Only Anne Frank (€16.50), Colosseum (€18), Doge's Palace (€25) have confirmed face values |
-| **Checked bags** | **easyJet €64/pp + KLM €80/pp = €144/pp if everyone checks one bag.** On easyJet that nearly doubles the fare. |
-| IDP | $30 + shipping ($9–$220), **per driver** |
+| **Checked bags** | **easyJet €64/pp** (Italy leg) **+ KLM €80/pp** (Amsterdam leg). KLM BASIC has **no carry-on at all**, so a bag is close to unavoidable on that flight. |
+| IDP | $30 + shipping ($9–$220), **per driver** — only 1–2 needed now |
+| Onward travel for those not going to Amsterdam | Yours to sort, per your instruction |
 | Food, drink, local transport | Out of scope |
 
-> **The verified $863.54 is a floor, not a forecast.** With trains, Eurostar, bags, tickets and any car, a realistic all-in figure is materially higher — but I would rather hand you a number every line of which is real than a tidy total that is half invention.
+> **The $919.46 is a floor, not a forecast.** Every line in it is a real, currently-bookable price for your real dates — but trains, the Eurostar, the van, bags and tickets are all still to come. I'd rather hand you a number you can trust than a tidy total that is half invention.
 
 ---
 
